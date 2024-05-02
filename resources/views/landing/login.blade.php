@@ -13,19 +13,7 @@
                 <h1 class="font-weight-bold text-dark mb-4 text-center">Login</h5>
                     <form action="">
                         <div class="form-group">
-                            <input type="text" class="form-control border py-4 mt-5" placeholder="Nama Lengkap"
-                                required="required" />
-                        </div>
-                        <div class="form-group">
                             <input type="email" class="form-control border py-4" placeholder="Email"
-                                required="required" />
-                        </div>
-                        <div class="form-group">
-                            <input type="number" class="form-control border py-4" placeholder="No. Telepon"
-                                required="required" />
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control border py-4" placeholder="Alamat"
                                 required="required" />
                         </div>
                         <div class="form-group">

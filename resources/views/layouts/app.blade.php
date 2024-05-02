@@ -23,6 +23,10 @@
     <link href="{{ asset('assets/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
+    <link href="
+        https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
+        "
+        rel="stylesheet">
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 </head>
 
@@ -59,6 +63,35 @@
 
     <!-- Template Javascript -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
+
+    <script src="
+                            https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js
+                            "></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (Session::has('message'))
+                Swal.fire({
+                    title: 'Berhasil',
+                    text: '{{ Session::get('message') }}',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            @endif
+            @if ($errors->any())
+                var errorMessage = '';
+                @foreach ($errors->all() as $error)
+                    errorMessage += '{{ $error }}\n';
+                @endforeach
+
+                Swal.fire({
+                    title: 'Error',
+                    text: errorMessage,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            @endif
+        });
+    </script>
 </body>
 
 </html>

@@ -10,4 +10,8 @@ class LoginController extends Controller
     {
         return view('landing.login');
     }
+
+    public function login()
+    {
+    }
 }

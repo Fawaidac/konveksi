@@ -45,7 +45,8 @@
                     </div>
                     <div class="navbar-nav ml-auto py-0">
                         <a href="/login" class="nav-item nav-link {{ Route::is('login') ? 'active' : '' }}">Login</a>
-                        <a href="" class="nav-item nav-link">Register</a>
+                        <a href="/register"
+                            class="nav-item nav-link {{ Route::is('register') ? 'active' : '' }}">Register</a>
                     </div>
                 </div>
             </nav>
