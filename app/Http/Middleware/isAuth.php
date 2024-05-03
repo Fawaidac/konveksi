@@ -16,7 +16,7 @@ class isAuth
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check()) {
+        if (Auth::check() && Auth::user()->is_admin == 1) {
             return $next($request);
         } else {
             return redirect('/')->with('belumlogin', 'harus login dulu ngab');

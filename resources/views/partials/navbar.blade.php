@@ -1,26 +1,6 @@
 <div class="container-fluid mb-5">
     <div class="row border-top px-xl-5">
-        {{-- <div class="col-lg-3 d-none d-lg-block">
-            <a class="btn shadow-none d-flex align-items-center justify-content-between text-white bg-primary w-100"
-                data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
-                <h6 class="m-0">Kategori</h6>
-                <i class="fa fa-angle-down text-white"></i>
-            </a>
-            <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0"
-                id="navbar-vertical">
-                <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
-                    <a href="" class="nav-item nav-link">Shirts</a>
-                    <a href="" class="nav-item nav-link">Jeans</a>
-                    <a href="" class="nav-item nav-link">Swimwear</a>
-                    <a href="" class="nav-item nav-link">Sleepwear</a>
-                    <a href="" class="nav-item nav-link">Sportswear</a>
-                    <a href="" class="nav-item nav-link">Jumpsuits</a>
-                    <a href="" class="nav-item nav-link">Blazers</a>
-                    <a href="" class="nav-item nav-link">Jackets</a>
-                    <a href="" class="nav-item nav-link">Shoes</a>
-                </div>
-            </nav>
-        </div> --}}
+
         <div class="col-lg-12">
             <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
                 <a href="" class="text-decoration-none d-block d-lg-none">
@@ -44,10 +24,13 @@
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
-                        <a href="/login" class="nav-item nav-link {{ Route::is('login') ? 'active' : '' }}">Login</a>
-                        <a href="/register"
-                            class="nav-item nav-link {{ Route::is('register') ? 'active' : '' }}">Register</a>
+                        @guest
+                            <a href="/login" class="nav-item nav-link {{ Route::is('login') ? 'active' : '' }}">Login</a>
+                            <a href="/register"
+                                class="nav-item nav-link {{ Route::is('register') ? 'active' : '' }}">Register</a>
+                        @endguest
                     </div>
+
                 </div>
             </nav>
 

@@ -16,8 +16,13 @@ class DetailProduk extends Model
 
     protected $table = 'detail_produk';
 
-    public function detail()
+    public function produk()
     {
         return $this->belongsTo(Produk::class, 'produk_id');
+    }
+
+    public function color()
+    {
+        return $this->belongsTo(Color::class, 'color_id');
     }
 }

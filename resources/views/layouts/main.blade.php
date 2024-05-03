@@ -13,9 +13,7 @@
     <link rel="stylesheet" href="{{ asset('assets/compiled/css/app-dark.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/compiled/css/iconly.css') }}">
     <link href="
-        https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
-        "
-        rel="stylesheet">
+        https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css"rel="stylesheet">
     @stack('styles')
 </head>
 
@@ -48,9 +46,7 @@
 
     <script src="{{ asset('assets/compiled/js/app.js') }}"></script>
     @stack('scripts')
-    <script src="
-                        https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js
-                        "></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             @if (Session::has('message'))

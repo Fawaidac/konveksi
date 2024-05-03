@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'notelp',
         'alamat',
+        'is_admin',
         'password',
     ];
 
