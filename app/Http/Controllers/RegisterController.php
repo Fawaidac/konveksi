@@ -10,7 +10,7 @@ class RegisterController extends Controller
 {
     public function index()
     {
-        return view('landing.register');
+        return view('auth.register');
     }
 
     public function register(Request $request)
@@ -18,7 +18,7 @@ class RegisterController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'notelp' => 'required|string|max:15',
+            'notelp' => 'required|string|max:20',
             'alamat' => 'required|string|max:255',
             'password' => 'required|string|min:8',
         ]);

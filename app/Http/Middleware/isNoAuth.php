@@ -16,8 +16,10 @@ class isNoAuth
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check()) {
-            return redirect('/dashboard')->with('sudahlogin', 'anda sudah login');
+        if (Auth::check() && Auth::user()->is_admin == 1) {
+            return redirect('/dashboard')->with('message', 'anda sudah login');
+        } elseif (Auth::check() && Auth::user()->is_admin == 0) {
+            return redirect('/dashboard/user')->with('message', 'anda sudah login');
         } else {
             return $next($request);
         }

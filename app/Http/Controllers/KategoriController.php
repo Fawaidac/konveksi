@@ -40,4 +40,13 @@ class KategoriController extends Controller
         $kategori->update($validatedData);
         return redirect()->route('kategori')->with('message', 'Data berhasil diperbarui.');
     }
+
+    public function produkByKategori($id)
+    {
+        $kategori = Kategori::findOrFail($id);
+
+        $produk = $kategori->produk()->get();
+
+        return view('landing.produk-list', compact('produk'));
+    }
 }

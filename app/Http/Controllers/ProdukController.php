@@ -109,4 +109,11 @@ class ProdukController extends Controller
         $produk->delete();
         return redirect()->route('produk')->with('message', 'Data berhasil dihapus.');
     }
+
+    public function getProductById($id)
+    {
+        $produk = Produk::with('kategori')->findOrFail($id);
+
+        return view('landing.item-produk', compact('produk'));
+    }
 }

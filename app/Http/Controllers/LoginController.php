@@ -12,7 +12,7 @@ class LoginController extends Controller
 {
     public function index()
     {
-        return view('landing.login');
+        return view('auth.login');
     }
 
     public function login(Request $request)
@@ -37,5 +37,14 @@ class LoginController extends Controller
         } else {
             return redirect()->route('home')->with('message', 'Berhasil Login');
         }
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::guard('web')->logout();
+
+        $request->session()->invalidate();
+
+        return redirect('/');
     }
 }

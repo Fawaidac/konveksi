@@ -60,7 +60,7 @@
                         <span>Warna</span>
                     </a>
                 </li>
-                <li class="sidebar-item has-sub">
+                <li class="sidebar-item has-sub {{ Route::is('produk') || Route::is('kategori') ? 'active' : '' }}">
                     <a href="#" class="sidebar-link">
                         <i class="bi bi-shop"></i>
                         <span>Produk</span>
@@ -74,26 +74,23 @@
                         </li>
                     </ul>
                 </li>
-                <li class="sidebar-item has-sub">
-                    <a href="#" class="sidebar-link">
+                <li class="sidebar-item has-sub {{ Route::is('pesanan') ? 'active' : '' }}">
+                    <a href="/pesanan" class="sidebar-link">
                         <i class="bi bi-journal-check"></i>
                         <span>Pemesanan</span>
                     </a>
 
                     <ul class="submenu">
                         <li class="submenu-item">
-                            <a href="form-validation-parsley.html" class="submenu-link">Data Pemesanan</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="form-validation-parsley.html" class="submenu-link">Detail Pemesanan</a>
+                            <a href="/pesanan" class="submenu-link">Data Pemesanan</a>
                         </li>
                         <li class="submenu-item">
                             <a href="form-validation-parsley.html" class="submenu-link">Nota</a>
                         </li>
                     </ul>
                 </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                <li class="sidebar-item {{ Route::is('pengiriman') ? 'active' : '' }}">
+                    <a href="/pengiriman" class="sidebar-link">
                         <i class="bi bi-truck"></i>
                         <span>Pengiriman</span>
                     </a>
@@ -102,6 +99,24 @@
                     <a href="#" class="sidebar-link">
                         <i class="bi bi-person-circle"></i>
                         <span>Profile</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Route::is('bahan') ? 'active' : '' }}">
+                    <a href="/bahan" class="sidebar-link">
+                        <i class="bi bi-box-seam"></i>
+                        <span>Bahan Baku</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Route::is('bank') ? 'active' : '' }}">
+                    <a href="/bank" class="sidebar-link">
+                        <i class="bi bi-bank"></i>
+                        <span>Bank</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Route::is('logout') ? 'active' : '' }}">
+                    <a href="/logout" class="sidebar-link">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Logout</span>
                     </a>
                 </li>
             </ul>

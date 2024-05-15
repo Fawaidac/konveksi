@@ -1,183 +1,97 @@
-/******* Bootstrap Theming ********/
+/* Theme Description
+-------------------------------------------------
 
-$primary: #D19C97;
-$secondary: #EDF1FF;
-$light: #FFFFFF;
-$dark: #1C1C1C;
+	  Theme Name:
+	  Author:
+	  Support:
+	  Description:
+	  Version:
+	  
+------------------------------------------------- 
+*/
 
-$theme-colors: (
-    "primary": $primary,
-    "secondary": $secondary,
-    "light": $light,
-    "dark": $dark,
-);
+/* CSS Index
+-------------------------------------------------
 
-$font-family-sans-serif: 'Poppins', sans-serif;
+	1. Theme default css
+	2. header
+	3. slider
+	4. about-area
+	5. features-box
+	6. department
+	7. team
+	8. video-area
+	9. counter
+	10. footer
 
-$body-color: #6F6F6F;
+-------------------------------------------------
+*/
 
-$headings-color: $dark;
-
-$border-color: $secondary;
-
-$input-border-color: $secondary;
-
-$enable-responsive-font-sizes: true;
-
-$enable-rounded: false;
-
-$btn-focus-box-shadow: none;
-
-$btn-active-box-shadow: none;
-
-$input-btn-focus-box-shadow: none;
-
-$input-placeholder-color: #999999;
-
-@import "bootstrap/scss/bootstrap";
+// Defult
+@import 'variables';
+@import 'mixins';
+@import 'overlay';
+@import 'common';
+@import 'color';
 
 
-/********** Custom CSS ************/
+// Homepage1
+@import 'headerMenu';
+@import 'h1-hero';
+@import 'category';
+@import 'latest_products';
+@import 'best-product';
+@import 'footer';
 
-.font-weight-medium {
-    font-weight: 500;
-}
+// inner Page
+@import 'services';
 
-.font-weight-semi-bold {
-    font-weight: 600;
-}
 
-[class^=flaticon-]:before,
-[class*=" flaticon-"]:before,
-[class^=flaticon-]:after,
-[class*=" flaticon-"]:after {
-    font-size: inherit;
-    margin-left: 0;
-}
+// Deful Element Page
+@import 'blog_page';
+@import 'contact';
+@import 'bradcam';
+@import 'extend';
+@import 'elements';
 
-.navbar-light .navbar-nav .nav-link {
-    padding: 20px 10px;
-    color: $dark;
-    outline: none;
-}
 
-.navbar-light .navbar-nav .nav-link:hover,
-.navbar-light .navbar-nav .nav-link.active {
-    color: $primary;
-}
 
-@media (max-width: 991.98px) {
-    .navbar-light .navbar-nav .nav-link  {
-        padding: 5px 0px;
-    }
-}
 
-.navbar-vertical.navbar-light .navbar-nav .nav-link {
-    padding: 8px 30px;
-    border-bottom: 1px solid $secondary;
-}
 
-#header-carousel img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
 
-.carousel-caption {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, .3);
-    z-index: 1;
-}
 
-.section-title {
-    position: relative;
-    display: inline-block;
-    letter-spacing: 1px;
-    font-weight: bold;
-    color: $dark;
-}
+// ------------include Inner page-------------------
+// mixin scss
+// @import "extends";
+// button scss
+@import "button";
+@import "blog";
+@import "single_blog";
+// body scss
+//@import "menu";
+// @import "banner";
+@import "single_product";
+@import "trending_items";
+@import "client_review";
+@import "feature_part";
+@import "subscribe_part";
+@import "product_list";
 
-.section-title span {
-    position: relative;
-    background: #ffffff;
-    z-index: 1;
-}
+@import "our_offer";
+@import "best_seller";
+@import "client_logo";
+@import "product";
+@import "new_arrival";
+@import "shipping_details";
+@import "instagram_photo";
+@import "confirmation_part";
 
-.section-title::before {
-    position: absolute;
-    content: "";
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    margin-top: -1px;
-    background: $dark;
-}
+@import "blog_part";
+@import "about_us";
 
-.offer img {
-    position: absolute;
-    max-width: 50%;
-    max-height: 90%;
-    bottom: 0;
-}
+// breadcrumb scss
+@import "breadcrumb";
 
-.offer .text-md-right img {
-    left: 0;
-}
 
-.offer .text-md-left img {
-    right: 0;
-}
 
-.cat-item .cat-img img,
-.product-item .product-img img  {
-    transition: .5s;
-}
 
-.cat-item:hover .cat-img img,
-.product-item:hover .product-img img {
-    transform: scale(1.2);
-}
-
-.product-item .btn:hover {
-    color: $primary !important;
-}
-
-.contact-form .help-block ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-}
-
-.back-to-top {
-    position: fixed;
-    display: none;
-    right: 30px;
-    bottom: 30px;
-    z-index: 11;
-    -webkit-animation: action 1s infinite alternate;
-    animation: action 1s infinite alternate;
-}
-
-@-webkit-keyframes action {
-    0% {
-        transform: translateY(0);
-    }
-
-    100% {
-        transform: translateY(-15px);
-    }
-}
-
-@keyframes action {
-    0% {
-        transform: translateY(0);
-    }
-
-    100% {
-        transform: translateY(-15px);
-    }
-}

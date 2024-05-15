@@ -18,8 +18,10 @@ class isAuth
     {
         if (Auth::check() && Auth::user()->is_admin == 1) {
             return $next($request);
+        } elseif (Auth::check() && Auth::user()->is_admin == 0) {
+            return $next($request);
         } else {
-            return redirect('/')->with('belumlogin', 'harus login dulu ngab');
+            return redirect('/')->with('message', 'harus login dulu ngab');
         }
     }
 }

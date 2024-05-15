@@ -1,39 +1,104 @@
-<div class="container-fluid mb-5">
-    <div class="row border-top px-xl-5">
-
-        <div class="col-lg-12">
-            <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
-                <a href="" class="text-decoration-none d-block d-lg-none">
-                    <img class="mr-1" src="assets/img/logo-rbg.png" height="50px"></img>
-                </a>
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                    <div class="navbar-nav mr-auto py-0">
-                        <a href="/" class="nav-item nav-link {{ Route::is('home') ? 'active' : '' }}">Home</a>
-                        <a href="/shop" class="nav-item nav-link {{ Route::is('shop') ? 'active' : '' }}">Produk</a>
-                        <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                            <div class="dropdown-menu rounded-0 m-0">
-                                <a href="cart.html" class="dropdown-item">Shopping Cart</a>
-                                <a href="checkout.html" class="dropdown-item">Checkout</a>
+    <header>
+        <!-- Header Start -->
+        <div class="header-area">
+            <div class="main-header ">
+                <div class="header-top top-bg d-none d-lg-block">
+                    <div class="container-fluid">
+                        <div class="col-xl-12" style="height: 30px">
+                            <div class="row d-flex align-items-end justify-content-end">
+                                <div class="header-info-right">
+                                    {{-- <ul>
+                                        <li><a href="login.html">My Account</a></li>
+                                        <li><a href="product_list.html">Wish List</a></li>
+                                        <li><a href="cart.html">Shopping</a></li>
+                                        <li><a href="cart.html">Cart</a></li>
+                                        <li><a href="checkout.html">Checkout</a></li>
+                                    </ul> --}}
+                                </div>
                             </div>
                         </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
                     </div>
-                    <div class="navbar-nav ml-auto py-0">
-                        @guest
-                            <a href="/login" class="nav-item nav-link {{ Route::is('login') ? 'active' : '' }}">Login</a>
-                            <a href="/register"
-                                class="nav-item nav-link {{ Route::is('register') ? 'active' : '' }}">Register</a>
-                        @endguest
-                    </div>
-
                 </div>
-            </nav>
 
+                <div class="header-bottom  header-sticky">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <!-- Logo -->
+                            <div class="col-xl-1 col-lg-1 col-md-1 col-sm-4">
+                                <div class="logo">
+                                    {{-- <a href="index.html"><img src="assets/img/logo/sentral.png" alt=""></a> --}}
+                                    <h1>Sentral</h1>
+
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-8 col-md-7 col-sm-5">
+                                <!-- Main-menu -->
+                                <div class="main-menu f-right d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">
+                                            <li><a href="/">Home</a></li>
+                                            <li><a href="/category-landing">Kategori</a></li>
+                                            <li class="hot"><a href="#">Latest</a>
+                                                <ul class="submenu">
+                                                    <li><a href="product_list.html"> Product list</a></li>
+                                                    <li><a href="single-product.html"> Product Details</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="blog.html">Blog</a>
+                                                <ul class="submenu">
+                                                    <li><a href="blog.html">Blog</a></li>
+                                                    <li><a href="single-blog.html">Blog Details</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#">Pages</a>
+                                                <ul class="submenu">
+                                                    <li><a href="login.html">Login</a></li>
+                                                    <li><a href="cart.html">Card</a></li>
+                                                    <li><a href="elements.html">Element</a></li>
+                                                    <li><a href="about.html">About</a></li>
+                                                    <li><a href="confirmation.html">Confirmation</a></li>
+                                                    <li><a href="cart.html">Shopping Cart</a></li>
+                                                    <li><a href="checkout.html">Product Checkout</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="contact.html">Contact</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="col-xl-5 col-lg-3 col-md-3 col-sm-3 fix-card">
+                                <ul class="header-right f-right d-none d-lg-block d-flex justify-content-between">
+                                    {{-- <li class="d-none d-xl-block">
+                                        <div class="form-box f-right ">
+                                            <input type="text" name="Search" placeholder="Search products">
+                                            <div class="search-icon">
+                                                <i class="fas fa-search special-tag"></i>
+                                            </div>
+                                        </div>
+                                    </li> --}}
+                                    @if (auth()->check() && auth()->user()->is_admin == 0)
+                                        <li class="d-none d-xl-block">
+                                            <a href="/dashboard/user">
+                                                <div class="favorit-items">
+                                                    <i class="far fa-user"></i>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    @else
+                                        <li class="d-none d-lg-block"> <a href="{{ route('login') }}"
+                                                class="btn header-btn">Login</a>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </div>
+                            <!-- Mobile Menu -->
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-lg-none"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+        <!-- Header End -->
+    </header>

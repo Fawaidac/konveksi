@@ -1,83 +1,94 @@
-<div class="container-fluid bg-primary text-dark mt-5 pt-5">
-    <div class="row px-xl-5 pt-5">
-        <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
-            <a href="" class="text-decoration-none">
-                <h1 class="mb-4 display-5 font-weight-semi-bold"><span
-                        class="text-primary font-weight-bold border border-white px-3 mr-2">KONVEKSI</span>Jember</h1>
-            </a>
-            <p class="text-white">Dolore erat dolor sit lorem vero amet. Sed sit lorem magna, ipsum no sit erat lorem et
-                magna ipsum
-                dolore amet erat.</p>
-            <p class="mb-2 text-white"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
-            <p class="mb-2 text-white"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
-            <p class="mb-0 text-white"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
-        </div>
-        <div class="col-lg-8 col-md-12">
+<footer>
+
+    <!-- Footer Start-->
+    <div class="footer-area footer-padding">
+        <div class="container">
+            <div class="row d-flex justify-content-between">
+                <div class="col-xl-3 col-lg-3 col-md-5 col-sm-6">
+                    <div class="single-footer-caption mb-50">
+                        <div class="single-footer-caption mb-30">
+                            <!-- logo -->
+                            <div class="footer-logo">
+                                <h1>Sentral</h1>
+                                <p>Konveksi Jember</p>
+                            </div>
+                            <div class="footer-tittle">
+                                <div class="footer-pera">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod
+                                        tempor incididunt ut labore.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-3 col-md-3 col-sm-5">
+                    <div class="single-footer-caption mb-50">
+                        <div class="footer-tittle">
+                            <h4>Quick Links</h4>
+                            <ul>
+                                <li><a href="#">About</a></li>
+                                <li><a href="#"> Offers & Discounts</a></li>
+                                <li><a href="#"> Get Coupon</a></li>
+                                <li><a href="#"> Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-7">
+                    <div class="single-footer-caption mb-50">
+                        <div class="footer-tittle">
+                            <h4>New Products</h4>
+                            <ul>
+                                <li><a href="#">Woman Cloth</a></li>
+                                <li><a href="#">Fashion Accessories</a></li>
+                                <li><a href="#"> Man Accessories</a></li>
+                                <li><a href="#"> Rubber made Toys</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-5 col-sm-7">
+                    <div class="single-footer-caption mb-50">
+                        <div class="footer-tittle">
+                            <h4>Support</h4>
+                            <ul>
+                                <li><a href="#">Frequently Asked Questions</a></li>
+                                <li><a href="#">Terms & Conditions</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Report a Payment Issue</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer bottom -->
             <div class="row">
-                <div class="col-md-4 mb-5">
-                    <h5 class="font-weight-bold text-white mb-4">Quick Links</h5>
-                    <div class="d-flex flex-column justify-content-start">
-                        <a class="text-white mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                        <a class="text-white mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Our
-                            Shop</a>
-                        <a class="text-white mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop
-                            Detail</a>
-                        <a class="text-white mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Shopping
-                            Cart</a>
-                        <a class="text-white mb-2" href="checkout.html"><i
-                                class="fa fa-angle-right mr-2"></i>Checkout</a>
-                        <a class="text-white" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact
-                            Us</a>
+                <div class="col-xl-7 col-lg-7 col-md-7">
+                    <div class="footer-copy-right">
+                        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;
+                            <script>
+                                document.write(new Date().getFullYear());
+                            </script>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
                     </div>
                 </div>
-                <div class="col-md-4 mb-5">
-                    <h5 class="font-weight-bold text-white mb-4">Quick Links</h5>
-                    <div class="d-flex flex-column justify-content-start">
-                        <a class="text-white mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                        <a class="text-white mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Our
-                            Shop</a>
-                        <a class="text-white mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop
-                            Detail</a>
-                        <a class="text-white mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Shopping
-                            Cart</a>
-                        <a class="text-white mb-2" href="checkout.html"><i
-                                class="fa fa-angle-right mr-2"></i>Checkout</a>
-                        <a class="text-white" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact
-                            Us</a>
+                <div class="col-xl-5 col-lg-5 col-md-5">
+                    <div class="footer-copy-right f-right">
+                        <!-- social -->
+                        <div class="footer-social">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-behance"></i></a>
+                            <a href="#"><i class="fas fa-globe"></i></a>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4 mb-5">
-                    <h5 class="font-weight-bold text-white mb-4">Newsletter</h5>
-                    <form action="">
-                        <div class="form-group">
-                            <input type="text" class="form-control border-0 py-4" placeholder="Your Name"
-                                required="required" />
-                        </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control border-0 py-4" placeholder="Your Email"
-                                required="required" />
-                        </div>
-                        <div>
-                            <button class="btn btn-primary btn-block border-0 py-3" type="submit">Subscribe
-                                Now</button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row border-top border-light mx-xl-5 py-4">
-        <div class="col-md-6 px-xl-0">
-            <p class="mb-md-0 text-center text-md-left text-white">
-                &copy; <a class="text-white font-weight-semi-bold" href="#">Your Site Name</a>. All Rights
-                Reserved. Designed
-                by
-                <a class="text-white font-weight-semi-bold" href="https://htmlcodex.com">HTML Codex</a><br>
-                Distributed By <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-            </p>
-        </div>
-        <div class="col-md-6 px-xl-0 text-center text-md-right">
-            <img class="img-fluid" src="img/payments.png" alt="">
-        </div>
-    </div>
-</div>
+    <!-- Footer End-->
+
+</footer>
