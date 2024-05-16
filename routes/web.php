@@ -50,6 +50,7 @@ Route::get('/pengiriman/user', [DashboardController::class, 'pengiriman_user'])-
 Route::put('/pengiriman/user/acc/{id}', [DashboardController::class, 'update_pengiriman_user'])->name('pengiriman-user-acc')->middleware('isAuth');
 
 Route::get('/user', [UserController::class, 'index'])->name('user')->middleware('isAuth');
+Route::get('/profile-admin', [DashboardController::class, 'profile_admin'])->name('profile-admin')->middleware('isAuth');
 
 Route::get('/colors', [ColorController::class, 'index'])->name('colors')->middleware('isAuth');
 Route::post('/colors/store', [ColorController::class, 'store'])->name('colors.store')->middleware('isAuth');

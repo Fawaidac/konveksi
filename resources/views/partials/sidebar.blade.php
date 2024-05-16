@@ -95,8 +95,8 @@
                         <span>Pengiriman</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                <li class="sidebar-item {{ Route::is('profile-admin') ? 'active' : '' }}">
+                    <a href="/profile-admin" class="sidebar-link">
                         <i class="bi bi-person-circle"></i>
                         <span>Profile</span>
                     </a>

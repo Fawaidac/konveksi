@@ -52,4 +52,9 @@ class DashboardController extends Controller
 
         return redirect()->back()->with('message', 'Paket telah diterima');
     }
+
+    public function profile_admin()
+    {
+        return view('dashboard.profile');
+    }
 }
