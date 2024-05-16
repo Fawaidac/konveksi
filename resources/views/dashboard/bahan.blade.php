@@ -105,33 +105,24 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>Harga</th>
+                                    <th>Pesanan</th>
                                     <th>Qty</th>
-                                    <th>Total Harga</th>
-                                    <th>Aksi</th>
+                                    <th>Tanggal</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($bahanKeluar as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->nama }}</td>
+                                        <td>{{ $item->bahanBaku->nama }}</td>
                                         <td>
-                                            Rp. {{ number_format($item->harga, 0, ',', '.') }}
+                                            {{ $item->pesanan->produk->nama }} x {{ $item->pesanan->qty }}
                                         </td>
                                         <td>
                                             {{ $item->qty }}
                                         </td>
                                         <td>
-                                            Rp. {{ number_format($item->total_harga, 0, ',', '.') }}
-                                        </td>
-                                        <td>
-                                            <button class="btn icon btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#update{{ $item->id }}"><i
-                                                    class="bi bi-pencil"></i></button>
-                                            <button class="btn icon btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#delete{{ $item->id }}"><i
-                                                    class="bi bi-trash"></i></button>
+                                            {{ \Carbon\Carbon::parse($item->created_at)->format('d F Y') }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -160,8 +151,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="first-name-vertical">Nama</label>
-                            <input type="text" id="first-name-vertical" required class="form-control"
-                                name="nama" />
+                            <input type="text" id="first-name-vertical" required class="form-control" name="nama" />
                         </div>
                         <div class="form-group">
                             <label for="first-name-vertical">Harga</label>

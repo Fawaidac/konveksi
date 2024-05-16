@@ -46,6 +46,9 @@ Route::get('/category-landing/{id}', [LandingController::class, 'getProdukByKate
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('isAuth');
 Route::get('/dashboard/user', [DashboardController::class, 'index_user'])->name('dashboard-user')->middleware('isAuth');
 Route::get('/pesanan/user', [DashboardController::class, 'pesanan_user'])->name('pesanan-user')->middleware('isAuth');
+Route::get('/pengiriman/user', [DashboardController::class, 'pengiriman_user'])->name('pengiriman-user')->middleware('isAuth');
+Route::put('/pengiriman/user/acc/{id}', [DashboardController::class, 'update_pengiriman_user'])->name('pengiriman-user-acc')->middleware('isAuth');
+
 Route::get('/user', [UserController::class, 'index'])->name('user')->middleware('isAuth');
 
 Route::get('/colors', [ColorController::class, 'index'])->name('colors')->middleware('isAuth');
@@ -70,9 +73,12 @@ Route::delete('/produk/{id}/delet', [ProdukController::class, 'delete'])->name('
 
 Route::get('/pesanan', [PesananController::class, 'index'])->name('pesanan')->middleware('isAuth');
 Route::put('/pesanan/{id}/update', [PesananController::class, 'update'])->name('pesanan-update')->middleware('isAuth');
+Route::get('/pesanan/{id}/nota', [PesananController::class, 'cetakNota'])->name('pesanan-nota')->middleware('isAuth');
 
 Route::get('/bahan', [BahanBakuController::class, 'index'])->name('bahan')->middleware('isAuth');
 Route::post('/bahan/store', [BahanBakuController::class, 'store'])->name('bahan-store')->middleware('isAuth');
 
 
 Route::get('/pengiriman', [PengirimanController::class, 'index'])->name('pengiriman')->middleware('isAuth');
+Route::post('/pengiriman-store', [PengirimanController::class, 'store'])->name('pengiriman.store')->middleware('isAuth');
+Route::put('/pengiriman-update/{id}', [PengirimanController::class, 'update'])->name('pengiriman.update')->middleware('isAuth');

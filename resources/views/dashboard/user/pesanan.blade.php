@@ -44,7 +44,19 @@
                                     {{ \Carbon\Carbon::parse($item->created_at)->format('d F Y') }}
                                 </td>
                                 <td>
-                                    {{ $item->status }}
+                                    @if ($item->status === 'menunggu konfirmasi')
+                                        <div class="badge badge-pill bg-light-warning">
+                                            Menunggu Konfimasi Admin
+                                        </div>
+                                    @elseif ($item->status === 'proses')
+                                        <div class="badge badge-pill bg-light-warning">
+                                            Dalam Proses Produksi
+                                        </div>
+                                    @else
+                                        <div class="badge badge-pill bg-light-success">
+                                            Selesai
+                                        </div>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

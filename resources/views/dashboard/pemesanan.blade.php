@@ -56,6 +56,12 @@
                                         data-bs-target="#info{{ $item->id }}"><i class="bi bi-info-circle"></i></button>
                                     <button class="btn icon btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#update{{ $item->id }}"><i class="bi bi-pencil"></i></button>
+                                    @if ($item->status === 'dalam pengiriman')
+                                        <a href="{{ route('pesanan-nota', ['id' => $item->id]) }}"
+                                            class="btn icon btn-danger" target="_blank">
+                                            <i class="bi bi-receipt"></i>
+                                        </a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -267,9 +273,9 @@
                                     </option>
                                     <option value="proses" {{ $item->status == 'proses' ? 'selected' : '' }}>Proses
                                     </option>
-                                    <option value="dalam pengiriman"
+                                    {{-- <option value="dalam pengiriman"
                                         {{ $item->status == 'dalam pengiriman' ? 'selected' : '' }}>Dalam Pengiriman
-                                    </option>
+                                    </option> --}}
                                     <option value="selesai" {{ $item->status == 'selesai' ? 'selected' : '' }}>Selesai
                                     </option>
                                 </select>

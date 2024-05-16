@@ -17,7 +17,7 @@
             </li>
 
             <li class="menu-item  ">
-                <a href="index.html" class='menu-link'>
+                <a href="/pengiriman/user" class='menu-link'>
                     <span><i class="bi bi-truck"></i> Pengiriman</span>
                 </a>
             </li>

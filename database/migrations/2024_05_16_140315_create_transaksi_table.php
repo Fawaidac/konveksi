@@ -21,6 +21,7 @@ return new class extends Migration
         Schema::create('transaksi_keluar', function (Blueprint $table) {
             $table->id();
             $table->foreignId('bahan_baku_id')->constrained('bahan_baku')->onDelete('cascade');
+            $table->foreignId('pesanan_id')->constrained('pesanan')->onDelete('cascade');
             $table->integer('qty');
             $table->timestamps();
         });

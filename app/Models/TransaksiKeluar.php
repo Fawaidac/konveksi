@@ -12,6 +12,7 @@ class TransaksiKeluar extends Model
 
     protected $fillable = [
         'bahan_baku_id',
+        'pesanan_id',
         'qty',
     ];
 
@@ -20,5 +21,10 @@ class TransaksiKeluar extends Model
     public function bahanBaku()
     {
         return $this->belongsTo(BahanBaku::class, 'bahan_baku_id');
+    }
+
+    public function pesanan()
+    {
+        return $this->belongsTo(Pesanan::class, 'pesanan_id');
     }
 }

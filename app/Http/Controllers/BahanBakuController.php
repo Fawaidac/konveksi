@@ -13,7 +13,7 @@ class BahanBakuController extends Controller
     {
         $bahan = BahanBaku::OrderByDesc('id')->get();
         $bahanMasuk = TransaksiMasuk::OrderByDesc('id')->with('bahanBaku')->get();
-        $bahanKeluar = TransaksiKeluar::OrderByDesc('id')->with('bahanBaku')->get();
+        $bahanKeluar = TransaksiKeluar::OrderByDesc('id')->with(['bahanBaku', 'pesanan'])->get();
         return view('dashboard.bahan', compact('bahan', 'bahanMasuk', 'bahanKeluar'));
     }
 

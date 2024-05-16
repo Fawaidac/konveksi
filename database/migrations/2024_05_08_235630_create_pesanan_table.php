@@ -19,7 +19,9 @@ return new class extends Migration
             $table->string("detail_alamat")->nullable();
             $table->string("detail_pesanan")->nullable();
             $table->string("nota")->nullable();
-            $table->enum("status", ['menunggu konfirmasi', 'proses', 'dalam pengiriman', 'selesai']);
+            $table->string("qr_code")->nullable();
+            // $table->text("snap_token")->nullable();
+            $table->enum("status", ['menunggu konfirmasi', 'proses', 'selesai']);
             $table->enum("status_pembayaran", ['belum_bayar', 'lunas', 'dp']);
             $table->timestamps();
         });

@@ -31,29 +31,24 @@
                         @foreach ($pengiriman as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->user->name }}</td>
+                                <td>{{ $item->pesanan->user->name }}</td>
                                 <td>
-                                    {{ $item->produk->nama }}
+                                    {{ $item->pesanan->produk->nama }} x {{ $item->pesanan->qty }}
                                 </td>
                                 <td>
-                                    Rp. {{ number_format($item->produk->harga, 0, ',', '.') }}
+                                    Rp. {{ number_format($item->pesanan->grand_total, 0, ',', '.') }}
                                 </td>
                                 <td>
-                                    {{ $item->qty }}
+                                    {{ \Carbon\Carbon::parse($item->tanggal_pengiriman)->format('d F Y') }}
                                 </td>
+                                <td> {{ $item->estimasi }} </td>
                                 <td>
-                                    Rp. {{ number_format($item->grand_total, 0, ',', '.') }}
+                                    {{ \Carbon\Carbon::parse($item->tanggal_tiba)->format('d F Y') }}
                                 </td>
                                 <td>
                                     {{ $item->status }}
                                 </td>
                                 <td>
-                                    <button class="btn icon btn-warning" data-bs-toggle="modal"
-                                        data-bs-target="#bukti{{ $item->id }}"><i class="bi bi-receipt"></i></button>
-                                </td>
-                                <td>
-                                    <button class="btn icon btn-info" data-bs-toggle="modal"
-                                        data-bs-target="#info{{ $item->id }}"><i class="bi bi-info-circle"></i></button>
                                     <button class="btn icon btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#update{{ $item->id }}"><i class="bi bi-pencil"></i></button>
                                 </td>
@@ -64,6 +59,133 @@
             </div>
         </div>
     </section>
+
+    {{-- modal add --}}
+    <div class="modal fade text-left" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
+        data-bs-backdrop="false" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel1">Tambah Data Pengiriman</h5>
+                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                        <i data-feather="x"></i>
+                    </button>
+                </div>
+                <form action="{{ route('pengiriman.store') }}" method="post">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="pesanan">Pesanan</label>
+                            <select class="choices form-select" id="pesanan" name="pesanan_id" required>
+                                <optgroup label="Pesanan">
+                                    @foreach ($pesanan as $item)
+                                        <option value="{{ $item->id }}">{{ $item->user->name }} -
+                                            {{ $item->produk->nama }} x {{ $item->qty }}</option>
+                                    @endforeach
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pesanan">Status</label>
+                            <select class="choices form-select" id="pesanan" name="status" required>
+                                <optgroup label="Status">
+                                    <option value="proses">Proses</option>
+                                    <option value="dalam perjalanan">Dalam Perjalanan</option>
+                                    {{-- <option value="sampai">Sampai</option> --}}
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="first-name-vertical">Tanggal Pengiriman</label>
+                            <input type="date" id="first-name-vertical" required class="form-control"
+                                name="tanggal_pengiriman" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="first-name-vertical">Estimasi Sampai</label>
+                            <input type="text" id="first-name-vertical" required class="form-control" name="estimasi"
+                                placeholder="0 hari" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="first-name-vertical">Tanggal Tiba</label>
+                            <input type="date" id="first-name-vertical" required class="form-control" name="tanggal_tiba"
+                                required />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-bs-dismiss="modal">
+                            <i class="bx bx-x d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Tutup</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary ms-1">
+                            <i class="bx bx-check d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Simpan</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- modal edit --}}
+    @foreach ($pengiriman as $item)
+        <div class="modal fade text-left" id="update{{ $item->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="myModalLabel1" data-bs-backdrop="false" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel1">Tambah Data Pengiriman</h5>
+                        <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                            <i data-feather="x"></i>
+                        </button>
+                    </div>
+                    <form action="{{ route('pengiriman.update', $item->id) }}" method="post">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="pesanan">Status</label>
+                                <select class="choices form-select" id="pesanan" name="status" required>
+                                    <optgroup label="Status">
+                                        <option value="proses" {{ $item->status == 'proses' ? 'selected' : '' }}>
+                                            Proses
+                                        </option>
+                                        <option value="dalam perjalanan"
+                                            {{ $item->status == 'dalam perjalanan' ? 'selected' : '' }}>Dalam Perjalanan
+                                        </option>
+                                        {{-- <option value="sampai">Sampai</option> --}}
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="first-name-vertical">Tanggal Pengiriman</label>
+                                <input type="date" id="first-name-vertical" required class="form-control"
+                                    name="tanggal_pengiriman" value="{{ $item->tanggal_pengiriman }}" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="first-name-vertical">Estimasi Sampai</label>
+                                <input type="text" id="first-name-vertical" required class="form-control"
+                                    name="estimasi" placeholder="0 hari" value="{{ $item->estimasi }}" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="first-name-vertical">Tanggal Tiba</label>
+                                <input type="date" id="first-name-vertical" required class="form-control"
+                                    name="tanggal_tiba" value="{{ $item->tanggal_tiba }}" required />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-bs-dismiss="modal">
+                                <i class="bx bx-x d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Tutup</span>
+                            </button>
+                            <button type="submit" class="btn btn-primary ms-1">
+                                <i class="bx bx-check d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Simpan</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endforeach
 @endsection
 @push('scripts')
     <script src="{{ asset('assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>

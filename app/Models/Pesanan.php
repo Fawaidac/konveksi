@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Pesanan extends Model
@@ -16,9 +17,12 @@ class Pesanan extends Model
         'bank_id',
         'bahan_baku_id',
         'qty',
+        'nota',
+        'qr_code',
         'grand_total',
         'status',
         'bukti',
+        'snap_token',
         'status_pembayaran',
         'detail_pesanan',
         'detail_alamat',
@@ -45,5 +49,10 @@ class Pesanan extends Model
     public function detailPesanan()
     {
         return $this->hasMany(DetailPesanan::class);
+    }
+
+    public function transaksiKeluar(): HasMany
+    {
+        return $this->hasMany(TransaksiKeluar::class);
     }
 }
