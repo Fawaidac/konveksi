@@ -23,6 +23,12 @@
             </li>
 
             <li class="menu-item  ">
+                <a href="/nota-scan" class='menu-link'>
+                    <span><i class="bi bi-receipt"></i> Scan Qr</span>
+                </a>
+            </li>
+
+            <li class="menu-item  ">
                 <a href="index.html" class='menu-link'>
                     <span><i class="bi bi-person-circle"></i> Profile</span>
                 </a>

@@ -22,6 +22,7 @@
                             <th>Total Harga</th>
                             <th>Tanggal Pesan</th>
                             <th>Status</th>
+                            <th>Cek Nota</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,6 +59,11 @@
                                         </div>
                                     @endif
                                 </td>
+                                <td>
+                                    <button class="btn icon btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#nota{{ $item->id }}"><i class="bi bi-receipt"></i></button>
+
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -65,8 +71,53 @@
             </div>
         </div>
     </section>
+
+    {{-- modal bukti --}}
+    @foreach ($pesanan as $item)
+        <div class="modal fade text-left" id="nota{{ $item->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="myModalLabel1" data-bs-backdrop="false" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel1">Nota</h5>
+                        <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                            <i data-feather="x"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img id="qrCodeImage" src="{{ asset('nota/' . $item->qr_code) }}" alt="" height="200px"
+                            width="200px">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-bs-dismiss="modal">
+                            <i class="bx bx-x d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Tutup</span>
+                        </button>
+                        <button type="button" class="btn btn-primary ms-1" onclick="downloadQR()">
+                            <i class="bx bx-download d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Simpan</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
 @endsection
 @push('scripts')
     <script src="{{ asset('assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
     <script src="{{ asset('assets/static/js/pages/simple-datatables.js') }}"></script>
+    <script>
+        function downloadQR() {
+            // Get the image element
+            var qrCodeImage = document.getElementById('qrCodeImage');
+            // Create a link element
+            var link = document.createElement('a');
+            // Set the href attribute of the link to the image source
+            link.href = qrCodeImage.src;
+            // Set the download attribute to force download
+            link.download = 'nota_qrcode.png';
+            // Simulate a click on the link
+            link.click();
+        }
+    </script>
 @endpush

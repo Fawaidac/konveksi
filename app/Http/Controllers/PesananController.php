@@ -3,18 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pesanan;
-use App\Http\Requests\StorePesananRequest;
-use App\Http\Requests\UpdatePesananRequest;
 use App\Models\BahanBaku;
 use App\Models\DetailPesanan;
 use App\Models\TransaksiKeluar;
-use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
-use BaconQrCode\Renderer\ImageRenderer;
-use BaconQrCode\Renderer\RendererStyle\RendererStyle;
-use BaconQrCode\Writer;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Carbon\Carbon;
+use Endroid\QrCode\QrCode as QrCodeQrCode;
+use Endroid\QrCode\Writer\PngWriter;
 
 class PesananController extends Controller
 {
@@ -106,34 +102,83 @@ class PesananController extends Controller
         return redirect()->route('pesanan')->with('message', 'Data berhasil diupdate');
     }
 
+    // public function cetakNota($id)
+    // {
+    //     $pesanan = Pesanan::findOrFail($id);
 
+    //     // Generate PDF nota
+    //     $pdf = FacadePdf::loadView('dashboard.nota-pdf', compact('pesanan'));
+    //     $pdf->setPaper(array(0, 0, 250, 500), 'portrait');
 
+    //     // Generate unique timestamp
+    //     $timestamp = Carbon::now()->format('YmdHis');
+
+    //     // Generate file paths with timestamp
+    //     $pdfFileName = 'nota_' . $pesanan->id . '_' . $timestamp . '.pdf';
+    //     $pdfPath = public_path('nota/' . $pdfFileName);
+    //     $pdf->save($pdfPath);
+
+    //     // Generate QR Code
+    //     // $url = route('pesanan-nota', $id);
+    //     $pdfUrl = url('nota/' . $pdfFileName);
+    //     $qrCodeFileName = 'qrcodes/' . $pesanan->id . '_' . $timestamp . '.png';
+    //     $qrCodePath = public_path('nota/' . $qrCodeFileName);
+
+    //     $qrCode = new QrCodeQrCode($pdfUrl);
+    //     $qrCode->setSize(400);
+    //     $qrCode->setMargin(10);
+
+    //     $writer = new PngWriter();
+    //     $result = $writer->write($qrCode);
+
+    //     // Save the QR code to the specified path
+    //     $result->saveToFile($qrCodePath);
+
+    //     // Update pesanan with QR Code path
+    //     $pesanan->update([
+    //         'nota' => 'nota_' . $pesanan->id . '_' . $timestamp . '.pdf',
+    //         'qr_code' => 'qrcodes/' . $pesanan->id . '_' . $timestamp . '.png',
+    //     ]);
+
+    //     return redirect()->route('pesanan')->with('message', 'Nota telah berhasil dibuat');
+    // }
     public function cetakNota($id)
     {
         $pesanan = Pesanan::findOrFail($id);
 
         // Generate PDF nota
         $pdf = FacadePdf::loadView('dashboard.nota-pdf', compact('pesanan'));
-        $pdf->setPaper(array(0, 0, 250, 500), 'portrait');
+        $pdf->setPaper(array(0, 0, 298, 420), 'portrait'); // A6 in points (105 mm x 148 mm)
 
-        // Save PDF nota to public directory
-        $pdfPath = public_path('nota/nota_' . $pesanan->id . '.pdf');
+        // Generate unique timestamp
+        $timestamp = Carbon::now()->format('YmdHis');
+
+        // Generate file paths with timestamp
+        $pdfFileName = 'nota_' . $pesanan->id . '_' . $timestamp . '.pdf';
+        $pdfPath = public_path('nota/' . $pdfFileName);
         $pdf->save($pdfPath);
 
-        // Generate QR Code
-        $url = route('pesanan-nota', $id);
-        $qrCodePath = public_path('nota/qrcodes/' . $pesanan->id . '.png');
-        // $renderer = new ImageRenderer(
-        //     new RendererStyle(400),
-        //     new ImagickImageBackEnd()
-        // );
-        // $writer = new Writer($renderer);
-        // $writer->writeFile($url, $qrCodePath);
-        QrCode::format('png')->size(400)->generate($url, $qrCodePath);
+        $qrCodeFileName = 'qrcodes/' . $pesanan->id . '_' . $timestamp . '.png';
+        $qrCodePath = public_path('nota/' . $qrCodeFileName);
+
+        // Generate the URL to the PDF file
+        $pdfUrl = url('nota/' . $pdfFileName);
+
+        // Create the QR code with the URL of the PDF
+        $qrCode = new QrCodeQrCode($pdfUrl);
+        $qrCode->setSize(400);
+        $qrCode->setMargin(10);
+
+        $writer = new PngWriter();
+        $result = $writer->write($qrCode);
+
+        // Save the QR code to the specified path
+        $result->saveToFile($qrCodePath);
+
         // Update pesanan with QR Code path
         $pesanan->update([
-            'nota' => 'nota_' . $pesanan->id . '.pdf',
-            'qr_code' => 'qrcodes/' . $pesanan->id . '.png',
+            'nota' => $pdfFileName,
+            'qr_code' => $qrCodeFileName,
         ]);
 
         return redirect()->route('pesanan')->with('message', 'Nota telah berhasil dibuat');

@@ -74,7 +74,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="sidebar-item has-sub {{ Route::is('pesanan') ? 'active' : '' }}">
+                {{-- <li class="sidebar-item has-sub {{ Route::is('pesanan') ? 'active' : '' }}">
                     <a href="/pesanan" class="sidebar-link">
                         <i class="bi bi-journal-check"></i>
                         <span>Pemesanan</span>
@@ -85,9 +85,15 @@
                             <a href="/pesanan" class="submenu-link">Data Pemesanan</a>
                         </li>
                         <li class="submenu-item">
-                            <a href="form-validation-parsley.html" class="submenu-link">Nota</a>
+                            <a href="/nota-scan" class="submenu-link">Nota</a>
                         </li>
                     </ul>
+                </li> --}}
+                <li class="sidebar-item {{ Route::is('pesanan') ? 'active' : '' }}">
+                    <a href="/pesanan" class="sidebar-link">
+                        <i class="bi bi-journal-check"></i>
+                        <span>Pesanan</span>
+                    </a>
                 </li>
                 <li class="sidebar-item {{ Route::is('pengiriman') ? 'active' : '' }}">
                     <a href="/pengiriman" class="sidebar-link">

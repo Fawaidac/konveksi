@@ -56,7 +56,7 @@
                                         data-bs-target="#info{{ $item->id }}"><i class="bi bi-info-circle"></i></button>
                                     <button class="btn icon btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#update{{ $item->id }}"><i class="bi bi-pencil"></i></button>
-                                    @if ($item->status === 'dalam pengiriman')
+                                    @if ($item->status === 'selesai')
                                         <a href="{{ route('pesanan-nota', ['id' => $item->id]) }}"
                                             class="btn icon btn-danger" target="_blank">
                                             <i class="bi bi-receipt"></i>
