@@ -11,10 +11,10 @@
             </div>
             <div class="card-body">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
+                    {{-- <li class="nav-item" role="presentation">
                         <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab"
                             aria-controls="home" aria-selected="true">Bahan Baku</a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab"
                             aria-controls="profile" aria-selected="false">Bahan Baku Masuk</a>
@@ -25,7 +25,7 @@
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    {{-- <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <table class="table table-striped mt-2" id="table1">
                             <thead>
                                 <tr>
@@ -55,7 +55,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    </div>
+                    </div> --}}
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         <table class="table table-striped mt-2" id="table1">
                             <thead>
@@ -155,13 +155,11 @@
                         </div>
                         <div class="form-group">
                             <label for="first-name-vertical">Harga</label>
-                            <input type="number" id="first-name-vertical" required class="form-control"
-                                name="harga" />
+                            <input type="number" id="first-name-vertical" required class="form-control" name="harga" />
                         </div>
                         <div class="form-group">
                             <label for="first-name-vertical">Qty</label>
-                            <input type="number" id="first-name-vertical" required class="form-control"
-                                name="qty" />
+                            <input type="number" id="first-name-vertical" required class="form-control" name="qty" />
                         </div>
                     </div>
                     <div class="modal-footer">

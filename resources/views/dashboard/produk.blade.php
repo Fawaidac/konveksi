@@ -24,6 +24,7 @@
                             <th>Harga</th>
                             <th>Kategori</th>
                             <th>Daftar Warna</th>
+                            <th>Daftar Ukuran</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -42,6 +43,11 @@
                                     @foreach ($item->detail as $detail)
                                         <a class="btn disable"
                                             style="background: {{ $detail->color->code_color }}">{{ $detail->color->code_color }}</a>
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @foreach ($item->detail as $detail)
+                                        <p>{{ $detail->ukuran->ukuran }} ,</p>
                                     @endforeach
                                 </td>
                                 <td>
@@ -110,6 +116,19 @@
                                         <option value="{{ $Colorsitem->id }}">
                                             {{ $Colorsitem->name_color }}
                                             <span class="badge" style="background: {{ $Colorsitem->code_color }}"></span>
+                                        </option>
+                                    @endforeach
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="ukuran">Pilih Ukuran</label>
+                            <select class="choices form-select multiple-remove" id="ukuran" multiple="multiple"
+                                name="ukuran[]">
+                                <optgroup label="Ukuran">
+                                    @foreach ($ukuran as $itemUkuran)
+                                        <option value="{{ $itemUkuran->id }}">
+                                            {{ $itemUkuran->ukuran }}
                                         </option>
                                     @endforeach
                                 </optgroup>
@@ -209,6 +228,34 @@
                                     </optgroup>
                                 </select>
 
+                            </div>
+                            <div class="form-group">
+                                <label for="ukuran">Pilih Ukuran</label>
+                                @php
+                                    // Inisialisasi variabel selectedUkuran
+                                    $selectedUkuran = [];
+
+                                    // Ambil ID ukuran yang terkait dengan produk
+                                    $selectedUkuranIds = $produkItem->detail->pluck('ukuran_id')->toArray();
+
+                                    // Periksa setiap ukuran, jika ID ukuran ada di dalam selectedUkuranIds, tambahkan ke dalam array selectedUkuran
+                                    foreach ($ukuran as $itemUkuran) {
+                                        if (in_array($itemUkuran->id, $selectedUkuranIds)) {
+                                            $selectedUkuran[] = $itemUkuran->id;
+                                        }
+                                    }
+                                @endphp
+                                <select class="choices form-select multiple-remove" id="ukuran" multiple="multiple"
+                                    name="ukuran[]">
+                                    <optgroup label="Ukuran">
+                                        @foreach ($ukuran as $itemUkuran)
+                                            <option value="{{ $itemUkuran->id }}"
+                                                {{ in_array($itemUkuran->id, $selectedUkuran) ? 'selected' : '' }}>
+                                                {{ $itemUkuran->ukuran }}
+                                            </option>
+                                        @endforeach
+                                    </optgroup>
+                                </select>
                             </div>
                         </div>
                         <div class="modal-footer">

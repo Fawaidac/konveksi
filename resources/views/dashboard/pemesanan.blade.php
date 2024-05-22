@@ -23,7 +23,9 @@
                             <th>Qty</th>
                             <th>Total Harga</th>
                             <th>Status</th>
+                            <th>Status Pemesanan</th>
                             <th>Bukti Pembayaran</th>
+                            <th>Bukti Pelunasan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -48,12 +50,33 @@
                                     {{ $item->status }}
                                 </td>
                                 <td>
+                                    @if ($item->pengiriman === 'ambil sendiri')
+                                        <div class="badge badge-pill bg-light-warning">
+                                            Ambil Sendiri
+                                        </div>
+                                    @else
+                                        <div class="badge badge-pill bg-light-warning">
+                                            Dikirim
+                                        </div>
+                                    @endif
+                                </td>
+                                <td>
                                     <button class="btn icon btn-warning" data-bs-toggle="modal"
                                         data-bs-target="#bukti{{ $item->id }}"><i class="bi bi-receipt"></i></button>
                                 </td>
                                 <td>
+                                    @if ($item->status_pembayaran === 'dp' && !is_null($item->bukti_pelunasan))
+                                        <button class="btn icon btn-warning" data-bs-toggle="modal"
+                                            data-bs-target="#pelunasan{{ $item->id }}"><i
+                                                class="bi bi-receipt"></i></button>
+                                    @else
+                                        <p>-</p>
+                                    @endif
+                                </td>
+                                <td>
                                     <button class="btn icon btn-info" data-bs-toggle="modal"
-                                        data-bs-target="#info{{ $item->id }}"><i class="bi bi-info-circle"></i></button>
+                                        data-bs-target="#info{{ $item->id }}"><i
+                                            class="bi bi-info-circle"></i></button>
                                     <button class="btn icon btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#update{{ $item->id }}"><i class="bi bi-pencil"></i></button>
                                     @if ($item->status === 'selesai')
@@ -236,6 +259,32 @@
             </div>
         </div>
     @endforeach
+    {{-- modal bukti --}}
+    @foreach ($pesanan as $item)
+        <div class="modal fade text-left" id="pelunasan{{ $item->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="myModalLabel1" data-bs-backdrop="false" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel1">Info Pelunasan Pembayaran</h5>
+                        <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                            <i data-feather="x"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img src="{{ asset('foto/bukti/' . $item->bukti_pelunasan) }}" alt="">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-bs-dismiss="modal">
+                            <i class="bx bx-x d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Tutup</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
 
     {{-- modal update --}}
     @foreach ($pesanan as $item)
@@ -256,9 +305,6 @@
                             <fieldset class="form-group">
                                 <label for="basicSelect">Status Pembayaran</label>
                                 <select name="status_pembayaran" class="form-select" id="basicSelect">
-                                    <option value="belum_bayar"
-                                        {{ $item->status_pembayaran == 'belum_bayar' ? 'selected' : '' }}>Belum Bayar
-                                    </option>
                                     <option value="lunas" {{ $item->status_pembayaran == 'lunas' ? 'selected' : '' }}>
                                         Lunas</option>
                                     <option value="dp" {{ $item->status_pembayaran == 'dp' ? 'selected' : '' }}>Dp 50%
@@ -273,36 +319,10 @@
                                     </option>
                                     <option value="proses" {{ $item->status == 'proses' ? 'selected' : '' }}>Proses
                                     </option>
-                                    {{-- <option value="dalam pengiriman"
-                                        {{ $item->status == 'dalam pengiriman' ? 'selected' : '' }}>Dalam Pengiriman
-                                    </option> --}}
                                     <option value="selesai" {{ $item->status == 'selesai' ? 'selected' : '' }}>Selesai
                                     </option>
                                 </select>
                             </fieldset>
-                            {{-- <div id="bahanBakuContainer{{ $item->id }}">
-                                @foreach ($item->detailPesanan as $detail)
-                                    <div class="bahan-baku-item">
-                                        <fieldset class="form-group">
-                                            <label for="basicSelect">Bahan Baku</label>
-                                            <select name="bahan_baku_id[]" class="form-select" id="basicSelect">
-                                                @foreach ($bahan as $itemBahan)
-                                                    <option value="{{ $itemBahan->id }}"
-                                                        {{ $detail->bahan_baku_id == $itemBahan->id ? 'selected' : '' }}>
-                                                        {{ $itemBahan->nama }}</option>
-                                                @endforeach
-                                            </select>
-                                        </fieldset>
-                                        <div class="form-group">
-                                            <label for="first-name-vertical">Jumlah Bahan</label>
-                                            <input type="number" required class="form-control" name="qty[]"
-                                                value="{{ $detail->bahanBaku->transaksiKeluar->sum('qty') }}" />
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                            <button type="button" id="addBahanBaku{{ $item->id }}" class="btn btn-secondary">Tambah
-                                Bahan Baku</button> --}}
                             <div id="bahanBakuContainer{{ $item->id }}">
                                 @if ($item->detailPesanan->isEmpty())
                                     <div class="bahan-baku-item">
@@ -318,6 +338,7 @@
                                             <label for="first-name-vertical">Jumlah Bahan</label>
                                             <input type="number" required class="form-control" name="qty[]" />
                                         </div>
+                                        <button type="button" class="btn btn-danger remove-bahan-baku">Remove</button>
                                     </div>
                                 @else
                                     @foreach ($item->detailPesanan as $detail)
@@ -328,7 +349,8 @@
                                                     @foreach ($bahan as $itemBahan)
                                                         <option value="{{ $itemBahan->id }}"
                                                             {{ $detail->bahan_baku_id == $itemBahan->id ? 'selected' : '' }}>
-                                                            {{ $itemBahan->nama }}</option>
+                                                            {{ $itemBahan->nama }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </fieldset>
@@ -337,13 +359,14 @@
                                                 <input type="number" required class="form-control" name="qty[]"
                                                     value="{{ $detail->bahanBaku->transaksiKeluar->sum('qty') }}" />
                                             </div>
+                                            <button type="button"
+                                                class="btn btn-danger remove-bahan-baku">Remove</button>
                                         </div>
                                     @endforeach
                                 @endif
                             </div>
-                            <button type="button" id="addBahanBaku{{ $item->id }}" class="btn btn-secondary">Tambah
-                                Bahan Baku</button>
-
+                            <button type="button" id="addBahanBaku{{ $item->id }}"
+                                class="btn btn-secondary float-end">Tambah Bahan Baku</button>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn" data-bs-dismiss="modal">
@@ -370,46 +393,27 @@
             document.getElementById('addBahanBaku{{ $item->id }}').addEventListener('click', function() {
                 var container = document.getElementById('bahanBakuContainer{{ $item->id }}');
                 var newItem = container.querySelector('.bahan-baku-item').cloneNode(true);
-                // Clear the input fields
                 newItem.querySelector('select').selectedIndex = 0;
                 newItem.querySelector('input').value = '';
-
-                // Check if there are existing detail items
-                var existingDetails = container.querySelectorAll('.bahan-baku-item');
-
-                // If no existing detail items, clone the first item
-                if (existingDetails.length === 0) {
-                    var firstItem = document.querySelector('.bahan-baku-item');
-                    newItem = firstItem.cloneNode(true);
-                }
-
+                addRemoveEvent(newItem);
                 container.appendChild(newItem);
+            });
+
+            function addRemoveEvent(item) {
+                item.querySelector('.remove-bahan-baku').addEventListener('click', function() {
+                    item.querySelector('input').value = ''; // Clear input value
+                    item.style.display = 'none'; // Hide the item
+                    // If you want to ensure the item is removed from the form submission, 
+                    // add a hidden input to track removed items (you'll need to handle this server-side).
+                    if (item.querySelector('input[name="bahan_baku_id[]"]')) {
+                        item.querySelector('input[name="bahan_baku_id[]"]').name = 'remove_bahan_baku_id[]';
+                    }
+                });
+            }
+
+            document.querySelectorAll('#bahanBakuContainer{{ $item->id }} .bahan-baku-item').forEach(function(item) {
+                addRemoveEvent(item);
             });
         </script>
     @endforeach
-
-
 @endpush
-{{-- <div id="bahanBakuContainer">
-                                <div class="bahan-baku-item">
-                                    <fieldset class="form-group">
-                                        <label for="basicSelect">Bahan Baku</label>
-                                        <select name="bahan_baku_id[]" class="form-select" id="basicSelect">
-                                            @foreach ($bahan as $itemBahan)
-                                                <option value="{{ $itemBahan->id }}">{{ $itemBahan->nama }}</option>
-                                            @endforeach
-                                        </select>
-                                    </fieldset>
-                                    <div class="form-group">
-                                        <label for="first-name-vertical">Jumlah Bahan</label>
-                                        <input type="number" required class="form-control" name="qty[]" />
-                                    </div>
-                                </div>
-                            </div> --}}
-{{-- <script>
-        document.getElementById('addBahanBaku').addEventListener('click', function() {
-            var container = document.getElementById('bahanBakuContainer');
-            var newItem = container.querySelector('.bahan-baku-item').cloneNode(true);
-            container.appendChild(newItem);
-        });
-    </script> --}}

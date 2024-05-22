@@ -15,8 +15,9 @@ class CheckoutController extends Controller
         $bank = Bank::all();
         $produk = Produk::with('kategori')->findOrFail($id);
         $warna = DetailProduk::where('produk_id', $id)->with('color')->get();
-        $qty = $request->query('qty');
-        return view('landing.checkout', compact('produk', 'bank', 'qty', 'warna'));
+        $ukuran = DetailProduk::where('produk_id', $id)->with('ukuran')->get();
+        // $qty = $request->query('qty');
+        return view('landing.checkout', compact('produk', 'bank', 'warna', 'ukuran'));
     }
 
     public function store_pesanan(Request $request)
@@ -26,6 +27,7 @@ class CheckoutController extends Controller
             'color_id' => 'required',
             'produk_id' => 'required',
             'qty' => 'required',
+            'pengiriman' => 'required',
             'grand_total' => 'required',
             'bukti' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'detail_pesanan' => 'required',
@@ -48,6 +50,7 @@ class CheckoutController extends Controller
             'grand_total' => $request->grand_total,
             'status' => "menunggu konfirmasi",
             'bukti' => $fileNameImage,
+            'pengiriman' => $request->pengiriman,
             'status_pembayaran' => "belum_bayar",
             'detail_pesanan' => $request->detail_pesanan,
             'detail_alamat' => $request->detail_alamat,

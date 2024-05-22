@@ -19,23 +19,22 @@
     </div>
     <!-- slider Area End-->
     <!--================Single Product Area =================-->
-    <div class="product_image_area">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <div class="product_img_slide owl-carousel">
-                        <div class="single_product_img">
-                            <img src="{{ asset('foto/product/' . $produk->image) }}" alt="#" class="img-fluid">
-                        </div>
-
+    <!--================End Single Product Area =================-->
+    <!-- subscribe part here -->
+    <div class="whole-wrap">
+        <div class="container box_1170">
+            <div class="section-top-border">
+                <h3 class="mb-30">Detail Produk</h3>
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="{{ asset('foto/product/' . $produk->image) }}" height="300dp" alt=""
+                            class="img-fluid">
                     </div>
-
-                </div>
-
-                <div class="col-lg-8">
-                    <div class="single_product_text text-center">
+                    <div class="col-md-9 mt-sm-20">
                         <h3>{{ $produk->nama }}<br>
                         </h3>
+
+                        <h5 class="mt-5">Warna : </h5>
                         <div class="product_count_area mb-2">
                             <div class="button-group-area">
                                 @foreach ($produk->detail as $detail)
@@ -44,18 +43,23 @@
                                 @endforeach
                             </div>
                         </div>
-                        <p>
-                            {{ $produk->deskripsi }}
-                        </p>
+
+                        <h5 class="mt-5">Ukuran : </h5>
+                        @foreach ($produk->detail as $item)
+                            <p>{{ $item->ukuran->ukuran }} , </p>
+                        @endforeach
+                        <h5 class="mt-5">Deskripsi : </h5>
+                        <p>{{ $produk->deskripsi }}</p>
+                        <h5 class="mt-5">Harga : </h5>
                         <p>Rp. {{ number_format($produk->harga, 0, ',', '.') }}</p>
                         <form action="{{ route('checkout', ['id' => $produk->id]) }}" method="GET">
                             <div class="card_area">
-                                <div class="product_count d-inline-block">
+                                {{-- <div class="product_count d-inline-block">
                                     <span class="product_count_item inumber-decrement"> <i class="ti-minus"></i></span>
                                     <input name="qty" class="product_count_item input-number" type="text"
                                         value="1" min="1" max="">
                                     <span class="product_count_item number-increment"> <i class="ti-plus"></i></span>
-                                </div>
+                                </div> --}}
                                 <div class="add_to_cart">
                                     <button type="submit" class="btn_3">CheckOut</button>
                                 </div>
@@ -66,24 +70,6 @@
             </div>
         </div>
     </div>
-    <!--================End Single Product Area =================-->
-    <!-- subscribe part here -->
-    <section class="subscribe_part section_padding">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="subscribe_part_content">
-                        <h2>Get promotions & updates!</h2>
-                        <p>Seamlessly empower fully researched growth strategies and interoperable internal or “organic”
-                            sources credibly innovate granular internal .</p>
-                        <div class="subscribe_form">
-                            <input type="email" placeholder="Enter your mail">
-                            <a href="#" class="btn_1">Subscribe</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
     <!-- subscribe part end -->
 @endsection

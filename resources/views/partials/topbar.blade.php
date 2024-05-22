@@ -2,11 +2,9 @@
     <div class="container">
         <ul>
 
-
-
-            <li class="menu-item  ">
-                <a href="/dashboard/user" class='menu-link'>
-                    <span><i class="bi bi-grid-fill"></i> Dashboard</span>
+            <li class="menu-item">
+                <a href="/dashboard/user" class='menu-link active'>
+                    <span><i class="bi bi-grid"></i> Dashboard</span>
                 </a>
             </li>
 
@@ -29,7 +27,7 @@
             </li>
 
             <li class="menu-item  ">
-                <a href="index.html" class='menu-link'>
+                <a href="/profile-user" class='menu-link'>
                     <span><i class="bi bi-person-circle"></i> Profile</span>
                 </a>
             </li>

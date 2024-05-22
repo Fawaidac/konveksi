@@ -89,8 +89,18 @@
                 <td colspan="3" class="text-right">-----------------</td>
             </tr>
             <tr>
-                <td colspan="2"></td>
-                <td class="text-right">Total: Rp. {{ number_format($pesanan->produk->harga, 0, ',', '.') }}</td>
+                <td colspan="3" class="text-left">Status Pembayaran</td>
+            </tr>
+            <tr>
+                <td colspan="2">{{ $pesanan->status_pembayaran }}</td>
+                <td class="text-right">
+                    Total: Rp.
+                    @if ($pesanan->status_pembayaran == 'dp')
+                        {{ number_format($pesanan->grand_total / 2, 0, ',', '.') }}
+                    @else
+                        {{ number_format($pesanan->grand_total, 0, ',', '.') }}
+                    @endif
+                </td>
             </tr>
         </table>
         <p class="text-center">-------------------------------------------------------</p>

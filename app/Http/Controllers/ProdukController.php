@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Color;
 use App\Models\Kategori;
 use App\Models\Produk;
+use App\Models\Ukuran;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -14,9 +15,10 @@ class ProdukController extends Controller
     public function index()
     {
         $produk = Produk::OrderByDesc('id')->with('kategori')->get();
-        $kategori = Kategori::get();
-        $color = Color::get();
-        return view('dashboard.produk', compact('produk', 'kategori', 'color'));
+        $kategori = Kategori::all();
+        $color = Color::all();
+        $ukuran = Ukuran::all();
+        return view('dashboard.produk', compact('produk', 'kategori', 'color', 'ukuran'));
     }
 
 
@@ -29,6 +31,8 @@ class ProdukController extends Controller
             'harga' => 'required',
             'color' => 'required|array',
             'color.*' => 'exists:color,id',
+            'ukuran' => 'required|array',
+            'ukuran.*' => 'exists:ukuran,id',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'image.required' => 'Anda harus mengunggah gambar.',
@@ -48,12 +52,15 @@ class ProdukController extends Controller
             'deskripsi' => $validatedData['deskripsi'],
             'harga' => $validatedData['harga'],
         ]);
-
         foreach ($validatedData['color'] as $colorId) {
-            $produk->detail()->create([
-                'color_id' => $colorId
-            ]);
+            foreach ($validatedData['ukuran'] as $ukuranId) {
+                $produk->detail()->create([
+                    'color_id' => $colorId,
+                    'ukuran_id' => $ukuranId,
+                ]);
+            }
         }
+
 
         return redirect()->route('produk')->with('message', 'Produk berhasil ditambahkan.');
     }
@@ -67,6 +74,8 @@ class ProdukController extends Controller
             'harga' => 'required',
             'color' => 'required|array',
             'color.*' => 'exists:color,id',
+            'ukuran' => 'required|array',
+            'ukuran.*' => 'exists:ukuran,id',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'image.image' => 'File harus berupa gambar.',
@@ -92,10 +101,14 @@ class ProdukController extends Controller
         $produk->detail()->delete();
 
         foreach ($validatedData['color'] as $colorId) {
-            $produk->detail()->create([
-                'color_id' => $colorId
-            ]);
+            foreach ($validatedData['ukuran'] as $ukuranId) {
+                $produk->detail()->create([
+                    'color_id' => $colorId,
+                    'ukuran_id' => $ukuranId,
+                ]);
+            }
         }
+
 
         return redirect()->route('produk')->with('message', 'Produk berhasil diupdate.');
     }

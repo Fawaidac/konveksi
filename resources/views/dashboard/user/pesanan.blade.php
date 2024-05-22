@@ -20,8 +20,11 @@
                             <th>Harga Produk</th>
                             <th>Qty</th>
                             <th>Total Harga</th>
+                            <th>Status Pemesanan</th>
                             <th>Tanggal Pesan</th>
                             <th>Status</th>
+                            <th>Status Pembayaran</th>
+                            <th>Status Pelunasan</th>
                             <th>Cek Nota</th>
                         </tr>
                     </thead>
@@ -42,6 +45,17 @@
                                     Rp. {{ number_format($item->grand_total, 0, ',', '.') }}
                                 </td>
                                 <td>
+                                    @if ($item->pengiriman === 'ambil sendiri')
+                                        <div class="badge badge-pill bg-light-warning">
+                                            Ambil Sendiri
+                                        </div>
+                                    @else
+                                        <div class="badge badge-pill bg-light-warning">
+                                            Dikirim
+                                        </div>
+                                    @endif
+                                </td>
+                                <td>
                                     {{ \Carbon\Carbon::parse($item->created_at)->format('d F Y') }}
                                 </td>
                                 <td>
@@ -60,9 +74,34 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <button class="btn icon btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#nota{{ $item->id }}"><i class="bi bi-receipt"></i></button>
-
+                                    @if ($item->status_pembayaran === 'belum_bayar')
+                                        <div class="badge badge-pill bg-light-warning">
+                                            Menunggu Konfimasi Admin
+                                        </div>
+                                    @else
+                                        <div class="badge badge-pill bg-light-success">
+                                            {{ $item->status_pembayaran }}
+                                        </div>
+                                    @endif
+                                </td>
+                                <td>
+                                    {{-- {{ dd($item->status_pembayaran, $item->bukti_pelunasan) }} --}}
+                                    @if ($item->status_pembayaran === 'dp' && is_null($item->bukti_pelunasan))
+                                        <button class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#pelunasan{{ $item->id }}"><i class="bi bi-edit"></i>Upload
+                                            bukti
+                                            pelunasan</button>
+                                    @elseif (!is_null($item->bukti_pelunasan))
+                                        <p>Sudah Upload Bukti</p>
+                                    @else
+                                        <p>Tidak perlu melakukan pelunasan</p>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($item->status === 'selesai' || $item->status_pembayaran === 'dp')
+                                        <button class="btn icon btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#nota{{ $item->id }}"><i class="bi bi-receipt"></i></button>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -98,6 +137,45 @@
                             <span class="d-none d-sm-block">Simpan</span>
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
+    {{-- modal bukti pelunasan --}}
+    @foreach ($pesanan as $item)
+        <div class="modal fade text-left" id="pelunasan{{ $item->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="myModalLabel1" data-bs-backdrop="false" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel1">Bukti Pelunasan</h5>
+                        <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                            <i data-feather="x"></i>
+                        </button>
+                    </div>
+                    <form action="{{ route('pemesanan-user-pelunasan', $item->id) }}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="first-name-vertical">Upload Bukti Pelunasan</label>
+                                <input type="file" id="first-name-vertical" required class="form-control" required
+                                    name="bukti_pelunasan" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-bs-dismiss="modal">
+                                <i class="bx bx-x d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Tutup</span>
+                            </button>
+                            <button type="submit" class="btn btn-primary ms-1">
+                                <i class="bx bx-download d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Simpan</span>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

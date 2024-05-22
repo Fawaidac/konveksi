@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class isAuth
+class AuthUser
 {
     /**
      * Handle an incoming request.
@@ -16,9 +16,10 @@ class isAuth
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->is_admin == 1) {
+        if (Auth::check() && Auth::user()->is_admin == 0) {
             return $next($request);
         }
-        return redirect('/')->with('message', 'Access denied, admin only, please login again');
+
+        return redirect('/')->with('message', 'Access denied, user only, please login again');
     }
 }

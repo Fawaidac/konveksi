@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreign('produk_id')->references('id')->on('produk')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('color_id')->after('produk_id');
             $table->foreign('color_id')->references('id')->on('color')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('ukuran_id')->after('color_id');
+            $table->foreign('ukuran_id')->references('id')->on('ukuran')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -29,6 +31,8 @@ return new class extends Migration
             $table->dropColumn('produk_id');
             $table->dropForeign(['color_id']);
             $table->dropColumn('color_id');
+            $table->dropForeign(['ukuran_id']);
+            $table->dropColumn('ukuran_id');
         });
     }
 };

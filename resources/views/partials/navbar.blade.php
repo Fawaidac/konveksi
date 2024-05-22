@@ -77,12 +77,8 @@
                                         </div>
                                     </li> --}}
                                     @if (auth()->check() && auth()->user()->is_admin == 0)
-                                        <li class="d-none d-xl-block">
-                                            <a href="/dashboard/user">
-                                                <div class="favorit-items">
-                                                    <i class="far fa-user"></i>
-                                                </div>
-                                            </a>
+                                        <li class="d-none d-lg-block"> <a href="{{ route('dashboard-user') }}"
+                                                class="btn header-btn">Pesanan Saya</a>
                                         </li>
                                     @else
                                         <li class="d-none d-lg-block"> <a href="{{ route('login') }}"

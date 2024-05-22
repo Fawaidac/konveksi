@@ -12,6 +12,7 @@ class DetailProduk extends Model
     protected $fillable = [
         'produk_id',
         'color_id',
+        'ukuran_id',
     ];
 
     protected $table = 'detail_produk';
@@ -24,5 +25,9 @@ class DetailProduk extends Model
     public function color()
     {
         return $this->belongsTo(Color::class, 'color_id');
+    }
+    public function ukuran()
+    {
+        return $this->belongsTo(Ukuran::class, 'ukuran_id');
     }
 }

@@ -95,6 +95,7 @@
                                 </optgroup>
                             </select>
                         </div>
+
                         <div class="form-group">
                             <label for="first-name-vertical">Tanggal Pengiriman</label>
                             <input type="date" id="first-name-vertical" required class="form-control"
@@ -155,6 +156,18 @@
                                     </optgroup>
                                 </select>
                             </div>
+                            @if ($item->pesanan->pengiriman === 'pengiriman')
+                                <div class="form-group">
+                                    <label for="first-name-vertical">Jasa Ekspedisi</label>
+                                    <input type="text" required class="form-control" name="jasa_ekspedisi" required
+                                        value="{{ $item->pesanan->jasa_ekspedisi }}" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="first-name-vertical">Total Ongkir</label>
+                                    <input type="number" required class="form-control" name="harga_ongkir"
+                                        value="{{ $item->pesanan->harga_ongkir }}" required />
+                                </div>
+                            @endif
                             <div class="form-group">
                                 <label for="first-name-vertical">Tanggal Pengiriman</label>
                                 <input type="date" id="first-name-vertical" required class="form-control"

@@ -39,7 +39,9 @@
                             <div class="tab-pane fade show active" id="home" role="tabpanel"
                                 aria-labelledby="home-tab">
                                 <h5 class="mt-4">Edit data admin</h5>
-                                <form class="mt-4" action="">
+                                <form class="mt-4" action="{{ route('user-update') }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
                                     <div class="form-group">
                                         <label for="first-name-vertical">Nama</label>
                                         <input type="text" id="first-name-vertical" value="{{ Auth::user()->name }}"
@@ -57,7 +59,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="first-name-vertical">Alamat</label>
-                                        <input type="number" id="first-name-vertical" required class="form-control"
+                                        <input type="text" id="first-name-vertical" required class="form-control"
                                             name="alamat" value="{{ Auth::user()->alamat }}" />
                                     </div>
                                     <button type="submit" class="btn btn-primary ms-1 float-end mt-2">

@@ -12,6 +12,8 @@ class DetailPesanan extends Model
     protected $fillable = [
         'pesanan_id',
         'bahan_baku_id',
+        'ukuran',
+        'qty',
     ];
 
     protected $table = 'detail_pesanan';

@@ -13,6 +13,7 @@ use App\Http\Controllers\PengirimanController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UkuranController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,20 +39,24 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 
 Route::get('/category/{id}', [KategoriController::class, 'produkByKategori'])->name('kategori.id');
 Route::get('/produk/{id}', [ProdukController::class, 'getProductById'])->name('produk.id');
-Route::get('/checkout/{id}', [CheckoutController::class, 'index'])->name('checkout')->middleware('isAuth');
-Route::post('/checkout-store', [CheckoutController::class, 'store_pesanan'])->name('checkout-store')->middleware('isAuth');
+Route::get('/checkout/{id}', [CheckoutController::class, 'index'])->name('checkout')->middleware('isAuthUser');
+Route::post('/checkout-store', [CheckoutController::class, 'store_pesanan'])->name('checkout-store')->middleware('isAuthUser');
 Route::get('/category-landing', [LandingController::class, 'category'])->name('kategori-landing');
 Route::get('/category-landing/{id}', [LandingController::class, 'getProdukByKategori'])->name('kategori-landing-id');
 
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('isAuth');
-Route::get('/dashboard/user', [DashboardController::class, 'index_user'])->name('dashboard-user')->middleware('isAuth');
-Route::get('/pesanan/user', [DashboardController::class, 'pesanan_user'])->name('pesanan-user')->middleware('isAuth');
-Route::get('/pengiriman/user', [DashboardController::class, 'pengiriman_user'])->name('pengiriman-user')->middleware('isAuth');
-Route::put('/pengiriman/user/acc/{id}', [DashboardController::class, 'update_pengiriman_user'])->name('pengiriman-user-acc')->middleware('isAuth');
+Route::get('/dashboard/user', [DashboardController::class, 'index_user'])->name('dashboard-user')->middleware('isAuthUser');
+Route::get('/pesanan/user', [DashboardController::class, 'pesanan_user'])->name('pesanan-user')->middleware('isAuthUser');
+Route::get('/pengiriman/user', [DashboardController::class, 'pengiriman_user'])->name('pengiriman-user')->middleware('isAuthUser');
+Route::put('/pengiriman/user/acc/{id}', [DashboardController::class, 'update_pengiriman_user'])->name('pengiriman-user-acc')->middleware('isAuthUser');
+Route::put('/pesanan/user/{id}', [DashboardController::class, 'update_pelunasan'])->name('pemesanan-user-pelunasan')->middleware('isAuthUser');
 
 Route::get('/user', [UserController::class, 'index'])->name('user')->middleware('isAuth');
+Route::put('/user-update', [UserController::class, 'updateUser'])->name('user-update')->middleware(['isAuth']);
+Route::put('/user-update-profile', [UserController::class, 'updateUser'])->name('user-update-profile')->middleware(['isAuthUser']);
 Route::get('/profile-admin', [DashboardController::class, 'profile_admin'])->name('profile-admin')->middleware('isAuth');
+Route::get('/profile-user', [DashboardController::class, 'profile_user'])->name('profile-user')->middleware('isAuthUser');
 
 Route::get('/colors', [ColorController::class, 'index'])->name('colors')->middleware('isAuth');
 Route::post('/colors/store', [ColorController::class, 'store'])->name('colors.store')->middleware('isAuth');
@@ -62,6 +67,11 @@ Route::get('/bank', [BankController::class, 'index'])->name('bank')->middleware(
 Route::post('/bank/store', [BankController::class, 'store'])->name('bank.store')->middleware('isAuth');
 Route::put('/bank/{id}/update', [BankController::class, 'update'])->name('bank.update')->middleware('isAuth');
 Route::delete('/bank/{id}/delete', [BankController::class, 'delete'])->name('bank.delete')->middleware('isAuth');
+
+Route::get('/ukuran', [UkuranController::class, 'index'])->name('ukuran')->middleware('isAuth');
+Route::post('/ukuran/store', [UkuranController::class, 'store'])->name('ukuran.store')->middleware('isAuth');
+Route::put('/ukuran/{id}/update', [UkuranController::class, 'update'])->name('ukuran.update')->middleware('isAuth');
+Route::delete('/ukuran/{id}/delete', [UkuranController::class, 'delete'])->name('ukuran.delete')->middleware('isAuth');
 
 Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori')->middleware('isAuth');
 Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store')->middleware('isAuth');
@@ -85,4 +95,4 @@ Route::get('/pengiriman', [PengirimanController::class, 'index'])->name('pengiri
 Route::post('/pengiriman-store', [PengirimanController::class, 'store'])->name('pengiriman.store')->middleware('isAuth');
 Route::put('/pengiriman-update/{id}', [PengirimanController::class, 'update'])->name('pengiriman.update')->middleware('isAuth');
 
-Route::get('/nota-scan', [NotaController::class, 'index'])->name('nota.scan')->middleware('isAuth');
+Route::get('/nota-scan', [NotaController::class, 'index'])->name('nota.scan')->middleware('isAuthUser');

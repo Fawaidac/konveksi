@@ -9,7 +9,7 @@
     <section class="section">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title">Tabel Pesanan</h5>
+                <h5 class="card-title">Tabel Pengiriman</h5>
             </div>
             <div class="card-body">
                 <table class="table table-striped" id="table1">
@@ -22,6 +22,8 @@
                             <th>Estimasi</th>
                             <th>Tanggal Tiba</th>
                             <th>Status</th>
+                            <th>Jenis Ekspedisi</th>
+                            <th>Harga Ongkir</th>
                             <th>Pesanan telah diterima</th>
                         </tr>
                     </thead>
@@ -58,6 +60,12 @@
                                             Dalam Perjalanan
                                         </div>
                                     @endif
+                                </td>
+                                <td>
+                                    {{ $item->pesanan->jasa_ekspedisi }}
+                                </td>
+                                <td>
+                                    Rp. {{ number_format($item->pesanan->harga_ongkir, 0, ',', '.') }}
                                 </td>
                                 <td>
                                     @if ($item->status === 'sampai')

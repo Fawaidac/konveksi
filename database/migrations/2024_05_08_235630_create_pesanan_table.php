@@ -16,12 +16,15 @@ return new class extends Migration
             $table->smallInteger('qty');
             $table->integer("grand_total")->nullable();
             $table->string("bukti")->nullable();
+            $table->string("bukti_pelunasan")->nullable();
             $table->string("detail_alamat")->nullable();
             $table->string("detail_pesanan")->nullable();
             $table->string("nota")->nullable();
             $table->string("qr_code")->nullable();
-            // $table->text("snap_token")->nullable();
+            $table->string("jasa_ekspedisi")->nullable();
+            $table->integer("harga_ongkir")->nullable();
             $table->enum("status", ['menunggu konfirmasi', 'proses', 'selesai']);
+            $table->enum("pengiriman", ['pengiriman', 'ambil sendiri']);
             $table->enum("status_pembayaran", ['belum_bayar', 'lunas', 'dp']);
             $table->timestamps();
         });
