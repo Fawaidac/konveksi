@@ -12,7 +12,8 @@ class DetailPesanan extends Model
     protected $fillable = [
         'pesanan_id',
         'bahan_baku_id',
-        'ukuran',
+        'ukuran_id',
+        'color_id',
         'qty',
     ];
 
@@ -26,5 +27,15 @@ class DetailPesanan extends Model
     public function pesanan()
     {
         return $this->belongsTo(Pesanan::class);
+    }
+
+    public function color()
+    {
+        return $this->belongsTo(Color::class);
+    }
+
+    public function ukuran()
+    {
+        return $this->belongsTo(Ukuran::class);
     }
 }

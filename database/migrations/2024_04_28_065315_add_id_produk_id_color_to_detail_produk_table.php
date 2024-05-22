@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('detail_produk', function (Blueprint $table) {
-            $table->unsignedBigInteger('produk_id');
-            $table->foreign('produk_id')->references('id')->on('produk')->onDelete('cascade')->onUpdate('cascade');
-            $table->unsignedBigInteger('color_id')->after('produk_id');
-            $table->foreign('color_id')->references('id')->on('color')->onDelete('cascade')->onUpdate('cascade');
-            $table->unsignedBigInteger('ukuran_id')->after('color_id');
-            $table->foreign('ukuran_id')->references('id')->on('ukuran')->onDelete('cascade')->onUpdate('cascade');
+        Schema::create('detail_produk_color', function (Blueprint $table) {
+            $table->foreignId('produk_id')->constrained('produk')->onDelete('cascade');
+            $table->foreignId('color_id')->constrained('color')->onDelete('cascade');
+        });
+        Schema::create('detail_produk_ukuran', function (Blueprint $table) {
+            $table->foreignId('produk_id')->constrained('produk')->onDelete('cascade');
+            $table->foreignId('ukuran_id')->constrained('ukuran')->onDelete('cascade');
         });
     }
 
@@ -26,13 +26,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('detail_produk', function (Blueprint $table) {
-            $table->dropForeign(['produk_id']);
-            $table->dropColumn('produk_id');
-            $table->dropForeign(['color_id']);
-            $table->dropColumn('color_id');
-            $table->dropForeign(['ukuran_id']);
-            $table->dropColumn('ukuran_id');
-        });
+        Schema::dropIfExists('detail_produk_color');
+        Schema::dropIfExists('detail_produk_ukuran');
     }
 };

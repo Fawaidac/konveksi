@@ -12,10 +12,8 @@ class Pesanan extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
-        'color_id',
         'produk_id',
-        'bank_id',
-        'bahan_baku_id',
+        'pengiriman_id',
         'qty',
         'nota',
         'qr_code',
@@ -37,25 +35,34 @@ class Pesanan extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function color()
-    {
-        return $this->belongsTo(Color::class, 'color_id');
-    }
+
     public function produk()
     {
         return $this->belongsTo(Produk::class, 'produk_id');
     }
-    public function pengiriman(): HasOne
+
+    public function pengiriman()
     {
-        return $this->hasOne(Pengiriman::class);
-    }
-    public function detailPesanan()
-    {
-        return $this->hasMany(DetailPesanan::class);
+        return $this->belongsTo(Pengiriman::class, 'pengiriman_id');
     }
 
     public function transaksiKeluar(): HasMany
     {
         return $this->hasMany(TransaksiKeluar::class);
+    }
+
+    public function pesananBahanBaku(): HasMany
+    {
+        return $this->hasMany(PesananBahanBaku::class);
+    }
+
+    public function pesananColor(): HasMany
+    {
+        return $this->hasMany(PesananColor::class);
+    }
+
+    public function pesananUkuran(): HasMany
+    {
+        return $this->hasMany(PesananUkuran::class);
     }
 }

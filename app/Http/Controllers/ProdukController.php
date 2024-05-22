@@ -6,7 +6,6 @@ use App\Models\Color;
 use App\Models\Kategori;
 use App\Models\Produk;
 use App\Models\Ukuran;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -52,15 +51,22 @@ class ProdukController extends Controller
             'deskripsi' => $validatedData['deskripsi'],
             'harga' => $validatedData['harga'],
         ]);
+
+        // Simpan warna
         foreach ($validatedData['color'] as $colorId) {
-            foreach ($validatedData['ukuran'] as $ukuranId) {
-                $produk->detail()->create([
-                    'color_id' => $colorId,
-                    'ukuran_id' => $ukuranId,
-                ]);
-            }
+            $produk->detail()->create([
+                'color_id' => $colorId,
+                'ukuran_id' => null, // Tambahkan ini untuk menghindari kesalahan kolom null
+            ]);
         }
 
+        // Simpan ukuran
+        foreach ($validatedData['ukuran'] as $ukuranId) {
+            $produk->detail()->create([
+                'color_id' => null, // Tambahkan ini untuk menghindari kesalahan kolom null
+                'ukuran_id' => $ukuranId,
+            ]);
+        }
 
         return redirect()->route('produk')->with('message', 'Produk berhasil ditambahkan.');
     }

@@ -20,11 +20,6 @@ class BahanBaku extends Model
 
     protected $table = 'bahan_baku';
 
-    public function pesanan(): HasOne
-    {
-        return $this->hasOne(Pesanan::class);
-    }
-
     public function transaksiMasuk(): HasMany
     {
         return $this->hasMany(TransaksiMasuk::class);

@@ -19,9 +19,14 @@ class Produk extends Model
 
     protected $table = 'produk';
 
-    public function detail()
+    public function produkColor()
     {
-        return $this->hasMany(DetailProduk::class);
+        return $this->hasMany(ProdukColor::class);
+    }
+
+    public function produkUkuran()
+    {
+        return $this->hasMany(ProdukUkuran::class);
     }
 
     public function kategori()

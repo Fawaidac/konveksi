@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('pengiriman', function (Blueprint $table) {
             $table->id();
-            $table->enum('status', ['proses', 'dalam perjalanan', 'sampai']);
-            $table->date('tanggal_pengiriman');
-            $table->string('estimasi', 25);
-            $table->date('tanggal_tiba');
+            $table->enum('status', ['proses', 'dalam perjalanan', 'sampai'])->nullable();
+            $table->date('tanggal_pengiriman')->nullable();
+            $table->string('estimasi', 25)->nullable();
+            $table->string("jasa_ekspedisi")->nullable();
+            $table->integer("harga_ongkir")->nullable();
+            $table->date('tanggal_tiba')->nullable();
             $table->timestamps();
         });
     }

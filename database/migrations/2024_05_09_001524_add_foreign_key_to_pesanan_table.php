@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::table('pesanan', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->unsignedBigInteger('color_id');
-            $table->foreign('color_id')->references('id')->on('color')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('produk_id');
             $table->foreign('produk_id')->references('id')->on('produk')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('pengiriman_id');
+            $table->foreign('pengiriman_id')->references('id')->on('pengiriman')->onDelete('cascade')->onUpdate('cascade')->nullable();
         });
     }
 
@@ -29,12 +29,10 @@ return new class extends Migration
         Schema::table('pesanan', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
             $table->dropColumn('user_id');
-            $table->dropForeign(['color_id']);
-            $table->dropColumn('color_id');
             $table->dropForeign(['produk_id']);
             $table->dropColumn('produk_id');
-            $table->dropForeign(['bank_id']);
-            $table->dropColumn('bank_id');
+            $table->dropForeign(['pengiriman_id']);
+            $table->dropColumn('pengiriman_id');
         });
     }
 };

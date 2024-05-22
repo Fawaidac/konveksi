@@ -16,8 +16,13 @@ class Color extends Model
 
     protected $table = 'color';
 
-    public function detail()
+    public function produkColor()
     {
-        return $this->hasMany(DetailProduk::class);
+        return $this->hasMany(ProdukColor::class);
+    }
+
+    public function pesananColor()
+    {
+        return $this->hasMany(PesananColor::class);
     }
 }

@@ -15,8 +15,13 @@ class Ukuran extends Model
 
     protected $table = 'ukuran';
 
-    public function detail()
+    public function produkUkuran()
     {
-        return $this->hasMany(DetailProduk::class);
+        return $this->hasMany(ProdukUkuran::class);
+    }
+
+    public function pesananUkuran()
+    {
+        return $this->hasMany(PesananUkuran::class);
     }
 }

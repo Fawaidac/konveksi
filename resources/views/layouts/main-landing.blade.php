@@ -89,6 +89,7 @@
     <script src="{{ asset('assets/js/plugins.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             @if (Session::has('message'))
