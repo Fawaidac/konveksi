@@ -60,6 +60,12 @@
                         <span>Warna</span>
                     </a>
                 </li>
+                <li class="sidebar-item {{ Route::is('ukuran') ? 'active' : '' }}">
+                    <a href="/ukuran" class="sidebar-link">
+                        <i class="bi bi-rulers"></i>
+                        <span>Ukuran</span>
+                    </a>
+                </li>
                 <li class="sidebar-item has-sub {{ Route::is('produk') || Route::is('kategori') ? 'active' : '' }}">
                     <a href="#" class="sidebar-link">
                         <i class="bi bi-shop"></i>
@@ -119,12 +125,7 @@
                         <span>Bank</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ Route::is('ukuran') ? 'active' : '' }}">
-                    <a href="/ukuran" class="sidebar-link">
-                        <i class="bi bi-rulers"></i>
-                        <span>Ukuran</span>
-                    </a>
-                </li>
+
                 <li class="sidebar-item {{ Route::is('logout') ? 'active' : '' }}">
                     <a href="/logout" class="sidebar-link">
                         <i class="bi bi-box-arrow-right"></i>

@@ -35,19 +35,20 @@
                                 <td>{{ $item->nama }}</td>
                                 <td>
                                     <img src="{{ asset('foto/product/' . $item->image) }}" height="50" width="50"
-                                        alt="Product Image" </td>
+                                        alt="Product Image">
+                                </td>
                                 <td>{{ $item->deskripsi }}</td>
                                 <td>{{ $item->harga }}</td>
                                 <td>{{ $item->kategori->nama }}</td>
                                 <td>
-                                    @foreach ($item->detail as $detail)
+                                    @foreach ($item->produkColor as $detail)
                                         <a class="btn disable"
                                             style="background: {{ $detail->color->code_color }}">{{ $detail->color->code_color }}</a>
                                     @endforeach
                                 </td>
                                 <td>
-                                    @foreach ($item->detail as $detail)
-                                        <p>{{ $detail->ukuran->ukuran }} ,</p>
+                                    @foreach ($item->produkUkuran as $detail)
+                                        <p>{{ $detail->ukuran->ukuran }}</p>
                                     @endforeach
                                 </td>
                                 <td>
@@ -201,13 +202,10 @@
                             <div class="form-group">
                                 <label for="colors">Pilih Warna</label>
                                 @php
-                                    // Inisialisasi variabel selectedColors
                                     $selectedColors = [];
 
-                                    // Ambil ID warna yang terkait dengan produk
-                                    $selectedColorIds = $produkItem->detail->pluck('color_id')->toArray();
+                                    $selectedColorIds = $produkItem->produkColor->pluck('color_id')->toArray();
 
-                                    // Periksa setiap warna, jika ID warna ada di dalam selectedColorIds, tambahkan ke dalam array selectedColors
                                     foreach ($color as $colorItem) {
                                         if (in_array($colorItem->id, $selectedColorIds)) {
                                             $selectedColors[] = $colorItem->id;
@@ -236,7 +234,7 @@
                                     $selectedUkuran = [];
 
                                     // Ambil ID ukuran yang terkait dengan produk
-                                    $selectedUkuranIds = $produkItem->detail->pluck('ukuran_id')->toArray();
+                                    $selectedUkuranIds = $produkItem->produkUkuran->pluck('ukuran_id')->toArray();
 
                                     // Periksa setiap ukuran, jika ID ukuran ada di dalam selectedUkuranIds, tambahkan ke dalam array selectedUkuran
                                     foreach ($ukuran as $itemUkuran) {

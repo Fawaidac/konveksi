@@ -54,16 +54,14 @@ class ProdukController extends Controller
 
         // Simpan warna
         foreach ($validatedData['color'] as $colorId) {
-            $produk->detail()->create([
+            $produk->produkColor()->create([
                 'color_id' => $colorId,
-                'ukuran_id' => null, // Tambahkan ini untuk menghindari kesalahan kolom null
             ]);
         }
 
         // Simpan ukuran
         foreach ($validatedData['ukuran'] as $ukuranId) {
-            $produk->detail()->create([
-                'color_id' => null, // Tambahkan ini untuk menghindari kesalahan kolom null
+            $produk->produkUkuran()->create([
                 'ukuran_id' => $ukuranId,
             ]);
         }
@@ -82,7 +80,7 @@ class ProdukController extends Controller
             'color.*' => 'exists:color,id',
             'ukuran' => 'required|array',
             'ukuran.*' => 'exists:ukuran,id',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'image.image' => 'File harus berupa gambar.',
             'image.mimes' => 'Gambar harus dalam format JPEG, PNG, JPG, atau GIF.',
@@ -92,32 +90,45 @@ class ProdukController extends Controller
         $produk = Produk::findOrFail($id);
 
         if ($request->hasFile('image')) {
-            $deleteimage = $produk->image;
-            if ($deleteimage) {
-                File::delete(public_path('foto/product') . '/' . $deleteimage);
+            // Hapus gambar lama jika ada
+            if (file_exists(public_path('foto/product/' . $produk->image))) {
+                unlink(public_path('foto/product/' . $produk->image));
             }
 
+            // Simpan gambar baru
             $fileNameImage = time() . '.' . $request->image->extension();
             $request->image->move(public_path('foto/product/'), $fileNameImage);
-            $validatedData['image'] = $fileNameImage;
+
+            $produk->image = $fileNameImage;
         }
 
-        $produk->update($validatedData);
+        // Update produk
+        $produk->update([
+            'kategori_id' => $validatedData['kategori_id'],
+            'nama' => $validatedData['nama'],
+            'deskripsi' => $validatedData['deskripsi'],
+            'harga' => $validatedData['harga'],
+        ]);
 
-        $produk->detail()->delete();
-
+        // Update warna
+        $produk->produkColor()->delete();
         foreach ($validatedData['color'] as $colorId) {
-            foreach ($validatedData['ukuran'] as $ukuranId) {
-                $produk->detail()->create([
-                    'color_id' => $colorId,
-                    'ukuran_id' => $ukuranId,
-                ]);
-            }
+            $produk->produkColor()->create([
+                'color_id' => $colorId,
+            ]);
         }
 
+        // Update ukuran
+        $produk->produkUkuran()->delete();
+        foreach ($validatedData['ukuran'] as $ukuranId) {
+            $produk->produkUkuran()->create([
+                'ukuran_id' => $ukuranId,
+            ]);
+        }
 
-        return redirect()->route('produk')->with('message', 'Produk berhasil diupdate.');
+        return redirect()->route('produk')->with('message', 'Produk berhasil diperbarui.');
     }
+
 
 
     public function delete($id)

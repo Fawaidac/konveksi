@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('detail_produk_color', function (Blueprint $table) {
             $table->foreignId('produk_id')->constrained('produk')->onDelete('cascade');
             $table->foreignId('color_id')->constrained('color')->onDelete('cascade');
+            $table->timestamps();
         });
         Schema::create('detail_produk_ukuran', function (Blueprint $table) {
             $table->foreignId('produk_id')->constrained('produk')->onDelete('cascade');
             $table->foreignId('ukuran_id')->constrained('ukuran')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
