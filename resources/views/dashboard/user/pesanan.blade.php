@@ -85,7 +85,6 @@
                                     @endif
                                 </td>
                                 <td>
-                                    {{-- {{ dd($item->status_pembayaran, $item->bukti_pelunasan) }} --}}
                                     @if ($item->status_pembayaran === 'dp' && is_null($item->bukti_pelunasan))
                                         <button class="btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#pelunasan{{ $item->id }}"><i class="bi bi-edit"></i>Upload

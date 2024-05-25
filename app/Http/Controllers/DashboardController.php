@@ -31,7 +31,7 @@ class DashboardController extends Controller
     {
 
         $idUser = Auth::user()->id;
-        $pesanan = Pesanan::with(['user', 'color', 'produk'])
+        $pesanan = Pesanan::with(['user', 'detailPesanan.color', 'produk'])
             ->where('user_id', $idUser)
             ->orderByDesc('id')
             ->get();

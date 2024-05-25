@@ -15,6 +15,8 @@ class Pengiriman extends Model
         'status',
         'tanggal_pengiriman',
         'tanggal_tiba',
+        'alamat_tujuan',
+        'alamat',
         'estimasi',
     ];
 

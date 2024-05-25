@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('pengiriman', function (Blueprint $table) {
             $table->id();
             $table->enum('status', ['proses', 'dalam perjalanan', 'sampai'])->nullable();
+            $table->string('alamat')->nullable();
+            $table->string('alamat_tujuan')->nullable();
             $table->date('tanggal_pengiriman')->nullable();
             $table->string('estimasi', 25)->nullable();
             $table->string("jasa_ekspedisi")->nullable();

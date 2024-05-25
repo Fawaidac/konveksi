@@ -25,4 +25,9 @@ class Color extends Model
     {
         return $this->hasMany(PesananColor::class);
     }
+
+    public function detailPesanan()
+    {
+        return $this->hasMany(DetailPesanan::class);
+    }
 }

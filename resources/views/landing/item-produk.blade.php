@@ -37,7 +37,7 @@
                         <h5 class="mt-5">Warna : </h5>
                         <div class="product_count_area mb-2">
                             <div class="button-group-area">
-                                @foreach ($produk->detail as $detail)
+                                @foreach ($produk->produkColor as $detail)
                                     <a class="genric-btn disable"
                                         style="background: {{ $detail->color->code_color }}">{{ $detail->color->name_color }}</a>
                                 @endforeach
@@ -45,21 +45,17 @@
                         </div>
 
                         <h5 class="mt-5">Ukuran : </h5>
-                        @foreach ($produk->detail as $item)
-                            <p>{{ $item->ukuran->ukuran }} , </p>
-                        @endforeach
+                        <div class="row ml-1">
+                            @foreach ($produk->produkUkuran as $item)
+                                <p class="mr-2">{{ $item->ukuran->ukuran }}</p>
+                            @endforeach
+                        </div>
                         <h5 class="mt-5">Deskripsi : </h5>
                         <p>{{ $produk->deskripsi }}</p>
                         <h5 class="mt-5">Harga : </h5>
                         <p>Rp. {{ number_format($produk->harga, 0, ',', '.') }}</p>
                         <form action="{{ route('checkout', ['id' => $produk->id]) }}" method="GET">
                             <div class="card_area">
-                                {{-- <div class="product_count d-inline-block">
-                                    <span class="product_count_item inumber-decrement"> <i class="ti-minus"></i></span>
-                                    <input name="qty" class="product_count_item input-number" type="text"
-                                        value="1" min="1" max="">
-                                    <span class="product_count_item number-increment"> <i class="ti-plus"></i></span>
-                                </div> --}}
                                 <div class="add_to_cart">
                                     <button type="submit" class="btn_3">CheckOut</button>
                                 </div>
